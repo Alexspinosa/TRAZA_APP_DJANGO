@@ -1,11 +1,11 @@
-
 from django.db import models
 from .tipo_actividad import TipoActividad
 
+
 class Actividad(models.Model):
-    tipo = models.ForeignKey(TipoActividad, on_delete=models.PROTECT)
-    fecha = models.DateTimeField(auto_now_add=True)
-    observacion = models.TextField(blank=True, null=True)
+    nombre = models.CharField(max_length=100, default='Nombre pendiente')
+    descripcion = models.TextField(blank=True, null=True)
+    tipo_actividad = models.ForeignKey(TipoActividad, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"{self.tipo.nombre} - {self.fecha.strftime('%Y-%m-%d %H:%M')}"
+        return self.nombre
