@@ -50,7 +50,8 @@ class ProveedorAdmin(admin.ModelAdmin):
 # --------------------------
 @admin.register(Capacidad)
 class CapacidadAdmin(admin.ModelAdmin):
-    list_display = ('peso_lb', 'tara_lb', 'peso_neto', 'descripcion')
+    list_display = ('referencia', 'peso_total_kg', 'tara_kg', 'peso_neto_kg',
+                    'descripcion')
     search_fields = ('descripcion',)
 
 

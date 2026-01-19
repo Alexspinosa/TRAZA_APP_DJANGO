@@ -1,4 +1,4 @@
-# =============================
+echo "# =============================
 # Python
 # =============================
 *.pyc
@@ -40,15 +40,4 @@ Thumbs.db
 # =============================
 # Otros
 # =============================
-*.swp
-
-#============================
-#Admin Base de Datos
-*.sql
-.adminUser.txt
---- Base de datos ---
-Motor: SQLite / MySQL
-Usuario DB: root
-Password DB: Traza2025*
-Host: localhost
-Puerto: 3306
+*.swp" > .gitignore
