@@ -1,6 +1,0 @@
---- Base de datos ---
-Motor: SQLite / MySQL
-Usuario DB: root
-Password DB: Traza2025*
-Host: localhost
-Puerto: 3306
