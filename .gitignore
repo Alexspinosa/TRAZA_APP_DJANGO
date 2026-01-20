@@ -1,0 +1,70 @@
+# ======================
+
+# Entorno virtual
+
+# ======================
+
+venv/
+.env
+
+# ======================
+
+# Django
+
+# ======================
+
+*.log
+*.pot
+*.pyc
+**pycache**/
+db.sqlite3
+media/
+
+# Migraciones (NO ignores las carpetas, solo los archivos compilados)
+
+**/migrations/**pycache**/
+
+# ======================
+
+# Archivos de entorno
+
+# ======================
+
+.env
+.env.*
+
+# ======================
+
+# IDEs y editores
+
+# ======================
+
+.vscode/
+.idea/
+*.swp
+
+# ======================
+
+# Sistema operativo
+
+# ======================
+
+.DS_Store
+Thumbs.db
+
+# ======================
+
+# Tests / coverage
+
+# ======================
+
+.coverage
+htmlcov/
+
+# ======================
+
+# Node (por si luego usas frontend)
+
+# ======================
+
+node_modules/
