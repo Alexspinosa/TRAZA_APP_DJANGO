@@ -1,4 +1,4 @@
-#Creamos las vista de la APP
+# Creamos las vista de la APP
 
 from django.urls import path
 from . import views
@@ -7,7 +7,7 @@ app_name = 'trazapp'
 
 urlpatterns = [
     # Inicio
-    path('', views.inicio, name='home'),
+    path('', views.home, name='home'),
 
     # Entradas
     path('entrada/', views.registrar_entrada, name='registrar_entrada'),

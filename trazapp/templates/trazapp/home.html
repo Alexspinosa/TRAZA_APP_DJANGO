@@ -1,0 +1,269 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+
+<div class="dashboard-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div>
+
+            <!-- LOGO -->
+            <div class="brand">
+
+                <div class="brand-icon">
+                    <i class="bi bi-box-seam"></i>
+                </div>
+
+                <div>
+                    <h3>TrazApp</h3>
+                    <span>Sistema de Trazabilidad</span>
+                </div>
+
+            </div>
+
+            <!-- MENU -->
+            <nav class="sidebar-menu">
+
+                <a href="#" class="active">
+                    <i class="bi bi-grid-fill"></i>
+                    Dashboard
+                </a>
+
+                <a href="{% url 'trazapp:registrar_entrada' %}">
+                    <i class="bi bi-box-arrow-in-down"></i>
+                    Registrar Entrada
+                </a>
+
+                <a href="{% url 'trazapp:registrar_salida' %}">
+                    <i class="bi bi-box-arrow-up"></i>
+                    Registrar Salida
+                </a>
+
+                <a href="{% url 'trazapp:registrar_meta' %}">
+                    <i class="bi bi-bullseye"></i>
+                    Meta del Día
+                </a>
+
+                <a href="{% url 'trazapp:reporte_diario' %}">
+                    <i class="bi bi-bar-chart-line"></i>
+                    Reporte Diario
+                </a>
+
+            </nav>
+
+        </div>
+
+        <!-- FOOTER -->
+        <div class="sidebar-footer">
+
+            <a href="#">
+                <i class="bi bi-gear"></i>
+                Configuración
+            </a>
+
+            <a href="#">
+                <i class="bi bi-box-arrow-right"></i>
+                Cerrar sesión
+            </a>
+
+        </div>
+
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main-panel">
+
+        <!-- TOPBAR -->
+        <header class="topbar">
+
+            <div>
+
+                <span class="breadcrumb">
+                    Pages / Dashboard
+                </span>
+
+                <h2>Dashboard</h2>
+
+            </div>
+
+            <div class="topbar-right">
+
+                <input type="text"
+                        placeholder="Buscar..."
+                        class="search-input">
+
+                <div class="top-icons">
+
+                    <i class="bi bi-bell"></i>
+                    <i class="bi bi-person-circle"></i>
+
+                </div>
+
+            </div>
+
+        </header>
+
+        <!-- STATS -->
+        <section class="stats-row">
+
+            <div class="stat-box">
+
+                <div>
+                    <span>Entradas Hoy</span>
+                    <h3>24</h3>
+                    <small class="text-success">
+                        +12% hoy
+                    </small>
+                </div>
+
+                <div class="stat-icon bg-primary">
+                    <i class="bi bi-box-arrow-in-down"></i>
+                </div>
+
+            </div>
+
+            <div class="stat-box">
+
+                <div>
+                    <span>Salidas Hoy</span>
+                    <h3>20</h3>
+                    <small class="text-success">
+                        +8% hoy
+                    </small>
+                </div>
+
+                <div class="stat-icon bg-success">
+                    <i class="bi bi-box-arrow-up"></i>
+                </div>
+
+            </div>
+
+            <div class="stat-box">
+
+                <div>
+                    <span>Meta del Día</span>
+                    <h3>30</h3>
+                    <small class="text-warning">
+                        Objetivo diario
+                    </small>
+                </div>
+
+                <div class="stat-icon bg-warning">
+                    <i class="bi bi-bullseye"></i>
+                </div>
+
+            </div>
+
+            <div class="stat-box">
+
+                <div>
+                    <span>Cumplimiento</span>
+                    <h3>80%</h3>
+                    <small class="text-danger">
+                        -2% ayer
+                    </small>
+                </div>
+
+                <div class="stat-icon bg-dark">
+                    <i class="bi bi-graph-up-arrow"></i>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- CHARTS -->
+        <section class="charts-grid">
+
+            <div class="chart-card">
+
+                <h5>Entradas Semanales</h5>
+
+                <img src="https://quickchart.io/chart?c={type:'bar',data:{labels:['L','M','M','J','V','S','D'],datasets:[{label:'Entradas',data:[12,19,7,15,22,30,18]}]}}">
+
+            </div>
+
+            <div class="chart-card">
+
+                <h5>Salidas Mensuales</h5>
+
+                <img src="https://quickchart.io/chart?c={type:'line',data:{labels:['E','F','M','A','M','J'],datasets:[{label:'Salidas',data:[120,190,170,220,260,300]}]}}">
+
+            </div>
+
+            <div class="chart-card">
+
+                <h5>Rendimiento</h5>
+
+                <img src="https://quickchart.io/chart?c={type:'line',data:{labels:['1','2','3','4','5','6'],datasets:[{label:'Meta',data:[40,55,60,70,65,80]}]}}">
+
+            </div>
+
+        </section>
+
+        <!-- TABLE -->
+        <section class="table-card">
+
+            <div class="table-header">
+
+                <h5>Últimos Movimientos</h5>
+
+                <button class="btn btn-sm btn-outline-primary">
+                    Ver todos
+                </button>
+
+            </div>
+
+            <table class="table align-middle">
+
+                <thead>
+
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Tipo</th>
+                        <th>NIIF</th>
+                        <th>Operador</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+                        <td>20/05/2025</td>
+                        <td>
+                            <span class="badge bg-success">
+                                Entrada
+                            </span>
+                        </td>
+                        <td>NIIF-12345</td>
+                        <td>Operador</td>
+                    </tr>
+
+                    <tr>
+                        <td>20/05/2025</td>
+                        <td>
+                            <span class="badge bg-danger">
+                                Salida
+                            </span>
+                        </td>
+                        <td>NIIF-45678</td>
+                        <td>Operador</td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </section>
+
+    </main>
+
+</div>
+
+{% endblock %}

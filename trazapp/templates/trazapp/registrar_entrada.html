@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}Registrar Entrada{% endblock %}
+
+{% block content %}
+
+<h1 class="app-title">
+    Registrar Entrada 📥
+</h1>
+
+<div class="custom-card">
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+        <div class="mb-4">
+
+            <label class="form-label fw-bold">
+                Código NIIF
+            </label>
+
+            <input
+                type="text"
+                name="codigo_niif"
+                class="form-control custom-input"
+                placeholder="Escanea o escribe el código"
+                autofocus
+                required
+            >
+
+        </div>
+
+        <button
+            type="submit"
+            class="btn-menu btn-primary-custom">
+            <i class="bi bi-check-circle"></i>
+            Registrar
+        </button>
+
+        <a href="{% url 'trazapp:home' %}"
+            class="btn-menu btn-light-custom">
+            <i class="bi bi-arrow-left"></i>
+            Volver
+        </a>
+
+    </form>
+
+</div>
+
+{% endblock %}
