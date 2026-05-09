@@ -1,6 +1,4 @@
-from django.shortcuts import render, redirect, get_object_or_404
-
-# Create your views here.
+from django.shortcuts import render, redirect
 from django.utils import timezone
 from django.contrib import messages
 from .models import Cilindro, Entrada, SalidaDiaria, MetaDiaria, TipoCilindro, Color
@@ -8,7 +6,33 @@ from .models import Cilindro, Entrada, SalidaDiaria, MetaDiaria, TipoCilindro, C
 
 def home(request):
     """Pantalla principal del operario"""
-    return render(request, 'trazapp/home.html')
+    hoy = timezone.now().date()
+
+    entradas = Entrada.objects.filter(fecha_hora__date=hoy).count()
+    salida = SalidaDiaria.objects.filter(fecha=hoy).first()
+    meta = MetaDiaria.objects.filter(fecha=hoy).first()
+
+    cantidad_salida = salida.cantidad if salida else 0
+    cantidad_meta = meta.meta if meta else 0
+
+    cumplimiento = 0
+    if cantidad_meta > 0:
+        cumplimiento = round((entradas / cantidad_meta) * 100, 1)
+
+    diferencia = entradas - cantidad_salida
+
+    ultimas_entradas = Entrada.objects.filter(
+        fecha_hora__date=hoy
+    ).select_related('cilindro__tipo', 'cilindro__color').order_by('-fecha_hora')[:10]
+
+    return render(request, 'trazapp/home.html', {
+        'entradas': entradas,
+        'cantidad_salida': cantidad_salida,
+        'cantidad_meta': cantidad_meta,
+        'cumplimiento': cumplimiento,
+        'diferencia': diferencia,
+        'ultimas_entradas': ultimas_entradas,
+    })
 
 
 def registrar_entrada(request):

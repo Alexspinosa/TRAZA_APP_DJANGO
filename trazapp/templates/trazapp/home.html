@@ -1,268 +1,181 @@
-{% extends 'base.html' %}
-{% load static %}
+{% extends 'trazapp/base.html' %}
 
 {% block title %}Dashboard{% endblock %}
+{% block breadcrumb %}Dashboard{% endblock %}
+{% block page_title %}Dashboard{% endblock %}
+{% block nav_home %}active bg-gradient-dark{% endblock %}
 
 {% block content %}
 
-<div class="dashboard-layout">
+<!-- CARDS DE ESTADÍSTICAS -->
+<div class="row">
 
-    <!-- SIDEBAR -->
-    <aside class="sidebar">
-
-        <div>
-
-            <!-- LOGO -->
-            <div class="brand">
-
-                <div class="brand-icon">
-                    <i class="bi bi-box-seam"></i>
+    <div class="col-xl-3 col-sm-6 mb-4">
+        <div class="card">
+            <div class="card-header p-3 pt-2">
+                <div class="icon icon-lg icon-shape bg-gradient-dark shadow-dark text-center border-radius-xl mt-n4 position-absolute">
+                    <span class="material-icons-round opacity-10">login</span>
                 </div>
-
-                <div>
-                    <h3>TrazApp</h3>
-                    <span>Sistema de Trazabilidad</span>
+                <div class="text-end pt-1">
+                    <p class="text-sm mb-0 text-capitalize">Entradas hoy</p>
+                    <h4 class="mb-0">{{ entradas }}</h4>
                 </div>
-
             </div>
+            <hr class="dark horizontal my-0">
+            <div class="card-footer p-3">
+                <p class="mb-0 text-sm">
+                    <span class="text-success font-weight-bolder">Total </span>
+                    cilindros ingresados
+                </p>
+            </div>
+        </div>
+    </div>
 
-            <!-- MENU -->
-            <nav class="sidebar-menu">
+    <div class="col-xl-3 col-sm-6 mb-4">
+        <div class="card">
+            <div class="card-header p-3 pt-2">
+                <div class="icon icon-lg icon-shape bg-gradient-primary shadow-primary text-center border-radius-xl mt-n4 position-absolute">
+                    <span class="material-icons-round opacity-10">logout</span>
+                </div>
+                <div class="text-end pt-1">
+                    <p class="text-sm mb-0 text-capitalize">Salidas hoy</p>
+                    <h4 class="mb-0">{{ cantidad_salida }}</h4>
+                </div>
+            </div>
+            <hr class="dark horizontal my-0">
+            <div class="card-footer p-3">
+                <p class="mb-0 text-sm">
+                    <span class="text-success font-weight-bolder">Total </span>
+                    cilindros despachados
+                </p>
+            </div>
+        </div>
+    </div>
 
-                <a href="#" class="active">
-                    <i class="bi bi-grid-fill"></i>
-                    Dashboard
-                </a>
+    <div class="col-xl-3 col-sm-6 mb-4">
+        <div class="card">
+            <div class="card-header p-3 pt-2">
+                <div class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center border-radius-xl mt-n4 position-absolute">
+                    <span class="material-icons-round opacity-10">flag</span>
+                </div>
+                <div class="text-end pt-1">
+                    <p class="text-sm mb-0 text-capitalize">Meta del día</p>
+                    <h4 class="mb-0">{{ cantidad_meta }}</h4>
+                </div>
+            </div>
+            <hr class="dark horizontal my-0">
+            <div class="card-footer p-3">
+                <p class="mb-0 text-sm">
+                    <span class="text-success font-weight-bolder">Cumplimiento: </span>
+                    {{ cumplimiento }}%
+                </p>
+            </div>
+        </div>
+    </div>
 
-                <a href="{% url 'trazapp:registrar_entrada' %}">
-                    <i class="bi bi-box-arrow-in-down"></i>
+    <div class="col-xl-3 col-sm-6 mb-4">
+        <div class="card">
+            <div class="card-header p-3 pt-2">
+                <div class="icon icon-lg icon-shape bg-gradient-warning shadow-warning text-center border-radius-xl mt-n4 position-absolute">
+                    <span class="material-icons-round opacity-10">compare_arrows</span>
+                </div>
+                <div class="text-end pt-1">
+                    <p class="text-sm mb-0 text-capitalize">Diferencia</p>
+                    <h4 class="mb-0">{{ diferencia }}</h4>
+                </div>
+            </div>
+            <hr class="dark horizontal my-0">
+            <div class="card-footer p-3">
+                <p class="mb-0 text-sm">
+                    <span class="text-success font-weight-bolder">Entradas </span>
+                    vs Salidas
+                </p>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- ACCIONES RÁPIDAS + TABLA -->
+<div class="row">
+
+    <!-- ACCIONES RÁPIDAS -->
+    <div class="col-lg-4 mb-4">
+        <div class="card h-100">
+            <div class="card-header pb-0">
+                <h6>Acciones rápidas</h6>
+                <p class="text-sm text-muted">Operaciones del día</p>
+            </div>
+            <div class="card-body">
+                <a href="{% url 'trazapp:registrar_entrada' %}" class="btn bg-gradient-dark w-100 mb-3">
+                    <span class="material-icons-round me-2" style="font-size:18px; vertical-align:middle;">login</span>
                     Registrar Entrada
                 </a>
-
-                <a href="{% url 'trazapp:registrar_salida' %}">
-                    <i class="bi bi-box-arrow-up"></i>
+                <a href="{% url 'trazapp:registrar_salida' %}" class="btn bg-gradient-primary w-100 mb-3">
+                    <span class="material-icons-round me-2" style="font-size:18px; vertical-align:middle;">logout</span>
                     Registrar Salida
                 </a>
-
-                <a href="{% url 'trazapp:registrar_meta' %}">
-                    <i class="bi bi-bullseye"></i>
+                <a href="{% url 'trazapp:registrar_meta' %}" class="btn bg-gradient-success w-100 mb-3">
+                    <span class="material-icons-round me-2" style="font-size:18px; vertical-align:middle;">flag</span>
                     Meta del Día
                 </a>
-
-                <a href="{% url 'trazapp:reporte_diario' %}">
-                    <i class="bi bi-bar-chart-line"></i>
+                <a href="{% url 'trazapp:reporte_diario' %}" class="btn bg-gradient-warning w-100">
+                    <span class="material-icons-round me-2" style="font-size:18px; vertical-align:middle;">bar_chart</span>
                     Reporte Diario
                 </a>
-
-            </nav>
-
+            </div>
         </div>
+    </div>
 
-        <!-- FOOTER -->
-        <div class="sidebar-footer">
-
-            <a href="#">
-                <i class="bi bi-gear"></i>
-                Configuración
-            </a>
-
-            <a href="#">
-                <i class="bi bi-box-arrow-right"></i>
-                Cerrar sesión
-            </a>
-
+    <!-- ÚLTIMAS ENTRADAS -->
+    <div class="col-lg-8 mb-4">
+        <div class="card h-100">
+            <div class="card-header pb-0">
+                <h6>Últimas entradas</h6>
+                <p class="text-sm text-muted">Cilindros registrados hoy</p>
+            </div>
+            <div class="card-body px-0 pt-0 pb-2">
+                <div class="table-responsive p-0">
+                    <table class="table align-items-center mb-0">
+                        <thead>
+                            <tr>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Código NIIF</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tipo</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Color</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Hora</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for entrada in ultimas_entradas %}
+                            <tr>
+                                <td>
+                                    <div class="d-flex px-2 py-1">
+                                        <div class="d-flex flex-column justify-content-center">
+                                            <h6 class="mb-0 text-sm">{{ entrada.cilindro.codigo_niif }}</h6>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><p class="text-sm font-weight-bold mb-0">{{ entrada.cilindro.tipo }}</p></td>
+                                <td><p class="text-sm font-weight-bold mb-0">{{ entrada.cilindro.color }}</p></td>
+                                <td><p class="text-sm font-weight-bold mb-0">{{ entrada.fecha_hora|time:"H:i" }}</p></td>
+                                <td>
+                                    <span class="badge badge-sm bg-gradient-success">Registrado</span>
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="5" class="text-center text-sm py-4 text-muted">
+                                    No hay entradas registradas hoy.
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
-
-    </aside>
-
-    <!-- MAIN -->
-    <main class="main-panel">
-
-        <!-- TOPBAR -->
-        <header class="topbar">
-
-            <div>
-
-                <span class="breadcrumb">
-                    Pages / Dashboard
-                </span>
-
-                <h2>Dashboard</h2>
-
-            </div>
-
-            <div class="topbar-right">
-
-                <input type="text"
-                        placeholder="Buscar..."
-                        class="search-input">
-
-                <div class="top-icons">
-
-                    <i class="bi bi-bell"></i>
-                    <i class="bi bi-person-circle"></i>
-
-                </div>
-
-            </div>
-
-        </header>
-
-        <!-- STATS -->
-        <section class="stats-row">
-
-            <div class="stat-box">
-
-                <div>
-                    <span>Entradas Hoy</span>
-                    <h3>24</h3>
-                    <small class="text-success">
-                        +12% hoy
-                    </small>
-                </div>
-
-                <div class="stat-icon bg-primary">
-                    <i class="bi bi-box-arrow-in-down"></i>
-                </div>
-
-            </div>
-
-            <div class="stat-box">
-
-                <div>
-                    <span>Salidas Hoy</span>
-                    <h3>20</h3>
-                    <small class="text-success">
-                        +8% hoy
-                    </small>
-                </div>
-
-                <div class="stat-icon bg-success">
-                    <i class="bi bi-box-arrow-up"></i>
-                </div>
-
-            </div>
-
-            <div class="stat-box">
-
-                <div>
-                    <span>Meta del Día</span>
-                    <h3>30</h3>
-                    <small class="text-warning">
-                        Objetivo diario
-                    </small>
-                </div>
-
-                <div class="stat-icon bg-warning">
-                    <i class="bi bi-bullseye"></i>
-                </div>
-
-            </div>
-
-            <div class="stat-box">
-
-                <div>
-                    <span>Cumplimiento</span>
-                    <h3>80%</h3>
-                    <small class="text-danger">
-                        -2% ayer
-                    </small>
-                </div>
-
-                <div class="stat-icon bg-dark">
-                    <i class="bi bi-graph-up-arrow"></i>
-                </div>
-
-            </div>
-
-        </section>
-
-        <!-- CHARTS -->
-        <section class="charts-grid">
-
-            <div class="chart-card">
-
-                <h5>Entradas Semanales</h5>
-
-                <img src="https://quickchart.io/chart?c={type:'bar',data:{labels:['L','M','M','J','V','S','D'],datasets:[{label:'Entradas',data:[12,19,7,15,22,30,18]}]}}">
-
-            </div>
-
-            <div class="chart-card">
-
-                <h5>Salidas Mensuales</h5>
-
-                <img src="https://quickchart.io/chart?c={type:'line',data:{labels:['E','F','M','A','M','J'],datasets:[{label:'Salidas',data:[120,190,170,220,260,300]}]}}">
-
-            </div>
-
-            <div class="chart-card">
-
-                <h5>Rendimiento</h5>
-
-                <img src="https://quickchart.io/chart?c={type:'line',data:{labels:['1','2','3','4','5','6'],datasets:[{label:'Meta',data:[40,55,60,70,65,80]}]}}">
-
-            </div>
-
-        </section>
-
-        <!-- TABLE -->
-        <section class="table-card">
-
-            <div class="table-header">
-
-                <h5>Últimos Movimientos</h5>
-
-                <button class="btn btn-sm btn-outline-primary">
-                    Ver todos
-                </button>
-
-            </div>
-
-            <table class="table align-middle">
-
-                <thead>
-
-                    <tr>
-                        <th>Fecha</th>
-                        <th>Tipo</th>
-                        <th>NIIF</th>
-                        <th>Operador</th>
-                    </tr>
-
-                </thead>
-
-                <tbody>
-
-                    <tr>
-                        <td>20/05/2025</td>
-                        <td>
-                            <span class="badge bg-success">
-                                Entrada
-                            </span>
-                        </td>
-                        <td>NIIF-12345</td>
-                        <td>Operador</td>
-                    </tr>
-
-                    <tr>
-                        <td>20/05/2025</td>
-                        <td>
-                            <span class="badge bg-danger">
-                                Salida
-                            </span>
-                        </td>
-                        <td>NIIF-45678</td>
-                        <td>Operador</td>
-                    </tr>
-
-                </tbody>
-
-            </table>
-
-        </section>
-
-    </main>
+    </div>
 
 </div>
 
