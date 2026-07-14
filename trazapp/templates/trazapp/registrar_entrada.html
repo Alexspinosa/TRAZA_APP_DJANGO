@@ -1,49 +1,41 @@
-{% extends 'base.html' %}
+{% extends 'trazapp/base.html' %}
 
 {% block title %}Registrar Entrada{% endblock %}
+{% block breadcrumb %}Registrar Entrada{% endblock %}
+{% block page_title %}Registrar Entrada{% endblock %}
+{% block nav_entrada %}is-active{% endblock %}
 
 {% block content %}
 
-<h1 class="app-title">
-    Registrar Entrada 📥
-</h1>
-
-<div class="custom-card">
+<div class="panel form-panel">
 
     <form method="POST">
-
         {% csrf_token %}
 
-        <div class="mb-4">
-
-            <label class="form-label fw-bold">
-                Código NIIF
-            </label>
-
+        <div class="field">
+            <label for="codigo_niif">Código NIIF</label>
             <input
                 type="text"
+                id="codigo_niif"
                 name="codigo_niif"
-                class="form-control custom-input"
+                class="form-control mono"
                 placeholder="Escanea o escribe el código"
                 autofocus
                 required
             >
-
+            <p class="hint-text">Si el cilindro no existe todavía, te llevaremos a crearlo.</p>
         </div>
 
-        <button
-            type="submit"
-            class="btn-menu btn-primary-custom">
-            <i class="bi bi-check-circle"></i>
-            Registrar
-        </button>
-
-        <a href="{% url 'trazapp:home' %}"
-            class="btn-menu btn-light-custom">
-            <i class="bi bi-arrow-left"></i>
-            Volver
-        </a>
-
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">
+                <span class="material-icons-round">check_circle</span>
+                Registrar
+            </button>
+            <a href="{% url 'trazapp:home' %}" class="btn btn-ghost">
+                <span class="material-icons-round">arrow_back</span>
+                Volver
+            </a>
+        </div>
     </form>
 
 </div>

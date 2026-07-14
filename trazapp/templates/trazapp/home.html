@@ -3,178 +3,103 @@
 {% block title %}Dashboard{% endblock %}
 {% block breadcrumb %}Dashboard{% endblock %}
 {% block page_title %}Dashboard{% endblock %}
-{% block nav_home %}active bg-gradient-dark{% endblock %}
+{% block nav_home %}is-active{% endblock %}
 
 {% block content %}
 
-<!-- CARDS DE ESTADÍSTICAS -->
-<div class="row">
-
-    <div class="col-xl-3 col-sm-6 mb-4">
-        <div class="card">
-            <div class="card-header p-3 pt-2">
-                <div class="icon icon-lg icon-shape bg-gradient-dark shadow-dark text-center border-radius-xl mt-n4 position-absolute">
-                    <span class="material-icons-round opacity-10">login</span>
-                </div>
-                <div class="text-end pt-1">
-                    <p class="text-sm mb-0 text-capitalize">Entradas hoy</p>
-                    <h4 class="mb-0">{{ entradas }}</h4>
-                </div>
-            </div>
-            <hr class="dark horizontal my-0">
-            <div class="card-footer p-3">
-                <p class="mb-0 text-sm">
-                    <span class="text-success font-weight-bolder">Total </span>
-                    cilindros ingresados
-                </p>
-            </div>
+<div class="kpi-row">
+    <div class="kpi-card" data-accent="teal">
+        <div class="kpi-top">
+            <span class="kpi-label">Entradas Hoy</span>
+            <span class="kpi-icon"><span class="material-icons-round">login</span></span>
         </div>
+        <div class="kpi-value">{{ entradas }}</div>
+        <div class="kpi-sub">cilindros ingresados</div>
     </div>
 
-    <div class="col-xl-3 col-sm-6 mb-4">
-        <div class="card">
-            <div class="card-header p-3 pt-2">
-                <div class="icon icon-lg icon-shape bg-gradient-primary shadow-primary text-center border-radius-xl mt-n4 position-absolute">
-                    <span class="material-icons-round opacity-10">logout</span>
-                </div>
-                <div class="text-end pt-1">
-                    <p class="text-sm mb-0 text-capitalize">Salidas hoy</p>
-                    <h4 class="mb-0">{{ cantidad_salida }}</h4>
-                </div>
-            </div>
-            <hr class="dark horizontal my-0">
-            <div class="card-footer p-3">
-                <p class="mb-0 text-sm">
-                    <span class="text-success font-weight-bolder">Total </span>
-                    cilindros despachados
-                </p>
-            </div>
+    <div class="kpi-card" data-accent="rose">
+        <div class="kpi-top">
+            <span class="kpi-label">Salidas Hoy</span>
+            <span class="kpi-icon"><span class="material-icons-round">logout</span></span>
         </div>
+        <div class="kpi-value">{{ cantidad_salida }}</div>
+        <div class="kpi-sub">cilindros despachados</div>
     </div>
 
-    <div class="col-xl-3 col-sm-6 mb-4">
-        <div class="card">
-            <div class="card-header p-3 pt-2">
-                <div class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center border-radius-xl mt-n4 position-absolute">
-                    <span class="material-icons-round opacity-10">flag</span>
-                </div>
-                <div class="text-end pt-1">
-                    <p class="text-sm mb-0 text-capitalize">Meta del día</p>
-                    <h4 class="mb-0">{{ cantidad_meta }}</h4>
-                </div>
-            </div>
-            <hr class="dark horizontal my-0">
-            <div class="card-footer p-3">
-                <p class="mb-0 text-sm">
-                    <span class="text-success font-weight-bolder">Cumplimiento: </span>
-                    {{ cumplimiento }}%
-                </p>
-            </div>
+    <div class="kpi-card" data-accent="indigo">
+        <div class="kpi-top">
+            <span class="kpi-label">Meta del Día</span>
+            <span class="kpi-icon"><span class="material-icons-round">flag</span></span>
         </div>
+        <div class="kpi-value">{{ cantidad_meta }}</div>
+        <div class="kpi-sub">cumplimiento: {{ cumplimiento }}%</div>
     </div>
 
-    <div class="col-xl-3 col-sm-6 mb-4">
-        <div class="card">
-            <div class="card-header p-3 pt-2">
-                <div class="icon icon-lg icon-shape bg-gradient-warning shadow-warning text-center border-radius-xl mt-n4 position-absolute">
-                    <span class="material-icons-round opacity-10">compare_arrows</span>
-                </div>
-                <div class="text-end pt-1">
-                    <p class="text-sm mb-0 text-capitalize">Diferencia</p>
-                    <h4 class="mb-0">{{ diferencia }}</h4>
-                </div>
-            </div>
-            <hr class="dark horizontal my-0">
-            <div class="card-footer p-3">
-                <p class="mb-0 text-sm">
-                    <span class="text-success font-weight-bolder">Entradas </span>
-                    vs Salidas
-                </p>
-            </div>
+    <div class="kpi-card" data-accent="amber">
+        <div class="kpi-top">
+            <span class="kpi-label">Diferencia</span>
+            <span class="kpi-icon"><span class="material-icons-round">compare_arrows</span></span>
         </div>
+        <div class="kpi-value">{{ diferencia }}</div>
+        <div class="kpi-sub">entradas vs salidas</div>
     </div>
-
 </div>
 
-<!-- ACCIONES RÁPIDAS + TABLA -->
-<div class="row">
+<div class="chart-row" style="grid-template-columns: 1fr 1.8fr;">
 
-    <!-- ACCIONES RÁPIDAS -->
-    <div class="col-lg-4 mb-4">
-        <div class="card h-100">
-            <div class="card-header pb-0">
-                <h6>Acciones rápidas</h6>
-                <p class="text-sm text-muted">Operaciones del día</p>
-            </div>
-            <div class="card-body">
-                <a href="{% url 'trazapp:registrar_entrada' %}" class="btn bg-gradient-dark w-100 mb-3">
-                    <span class="material-icons-round me-2" style="font-size:18px; vertical-align:middle;">login</span>
-                    Registrar Entrada
-                </a>
-                <a href="{% url 'trazapp:registrar_salida' %}" class="btn bg-gradient-primary w-100 mb-3">
-                    <span class="material-icons-round me-2" style="font-size:18px; vertical-align:middle;">logout</span>
-                    Registrar Salida
-                </a>
-                <a href="{% url 'trazapp:registrar_meta' %}" class="btn bg-gradient-success w-100 mb-3">
-                    <span class="material-icons-round me-2" style="font-size:18px; vertical-align:middle;">flag</span>
-                    Meta del Día
-                </a>
-                <a href="{% url 'trazapp:reporte_diario' %}" class="btn bg-gradient-warning w-100">
-                    <span class="material-icons-round me-2" style="font-size:18px; vertical-align:middle;">bar_chart</span>
-                    Reporte Diario
-                </a>
-            </div>
+    <div class="panel">
+        <div class="panel-head">
+            <h3>Acciones rápidas</h3>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:10px;">
+            <a href="{% url 'trazapp:registrar_entrada' %}" class="btn btn-primary" style="justify-content:center;">
+                <span class="material-icons-round">login</span> Registrar Entrada
+            </a>
+            <a href="{% url 'trazapp:registrar_salida' %}" class="btn btn-ghost" style="justify-content:center;">
+                <span class="material-icons-round">logout</span> Registrar Salida
+            </a>
+            <a href="{% url 'trazapp:registrar_meta' %}" class="btn btn-ghost" style="justify-content:center;">
+                <span class="material-icons-round">flag</span> Meta del Día
+            </a>
+            <a href="{% url 'trazapp:reporte_diario' %}" class="btn btn-ghost" style="justify-content:center;">
+                <span class="material-icons-round">bar_chart</span> Reporte Diario
+            </a>
         </div>
     </div>
 
-    <!-- ÚLTIMAS ENTRADAS -->
-    <div class="col-lg-8 mb-4">
-        <div class="card h-100">
-            <div class="card-header pb-0">
-                <h6>Últimas entradas</h6>
-                <p class="text-sm text-muted">Cilindros registrados hoy</p>
-            </div>
-            <div class="card-body px-0 pt-0 pb-2">
-                <div class="table-responsive p-0">
-                    <table class="table align-items-center mb-0">
-                        <thead>
-                            <tr>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Código NIIF</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tipo</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Color</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Hora</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Estado</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for entrada in ultimas_entradas %}
-                            <tr>
-                                <td>
-                                    <div class="d-flex px-2 py-1">
-                                        <div class="d-flex flex-column justify-content-center">
-                                            <h6 class="mb-0 text-sm">{{ entrada.cilindro.codigo_niif }}</h6>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td><p class="text-sm font-weight-bold mb-0">{{ entrada.cilindro.tipo }}</p></td>
-                                <td><p class="text-sm font-weight-bold mb-0">{{ entrada.cilindro.color }}</p></td>
-                                <td><p class="text-sm font-weight-bold mb-0">{{ entrada.fecha_hora|time:"H:i" }}</p></td>
-                                <td>
-                                    <span class="badge badge-sm bg-gradient-success">Registrado</span>
-                                </td>
-                            </tr>
-                            {% empty %}
-                            <tr>
-                                <td colspan="5" class="text-center text-sm py-4 text-muted">
-                                    No hay entradas registradas hoy.
-                                </td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+    <div class="panel table-panel">
+        <div class="panel-head">
+            <h3>Últimas entradas</h3>
+            <span class="hint">cilindros registrados hoy</span>
         </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Código NIIF</th>
+                    <th>Tipo</th>
+                    <th>Color</th>
+                    <th>Hora</th>
+                    <th>Estado</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for entrada in ultimas_entradas %}
+                <tr>
+                    <td class="cyl-code">{{ entrada.cilindro.codigo_niif }}</td>
+                    <td>{{ entrada.cilindro.tipo }}</td>
+                    <td>{{ entrada.cilindro.color }}</td>
+                    <td>{{ entrada.fecha_hora|time:"H:i" }}</td>
+                    <td><span class="badge badge-teal">Registrado</span></td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" style="text-align:center; color:var(--ink-faint); padding:24px;">
+                        No hay entradas registradas hoy.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
 
 </div>

@@ -1,0 +1,51 @@
+{% extends 'trazapp/base.html' %}
+
+{% block title %}Meta Diaria{% endblock %}
+{% block breadcrumb %}Meta Diaria{% endblock %}
+{% block page_title %}Meta Diaria{% endblock %}
+{% block nav_meta %}is-active{% endblock %}
+
+{% block content %}
+
+<div class="panel form-panel">
+
+    {% if meta_hoy %}
+    <div class="current-value-banner">
+        <span class="material-icons-round">info</span>
+        La meta de hoy ya está en <strong>{{ meta_hoy.meta }}</strong> cilindros. Guardar de nuevo la actualiza.
+    </div>
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <div class="field">
+            <label for="meta">Meta de cilindros para hoy</label>
+            <input
+                type="number"
+                min="0"
+                id="meta"
+                name="meta"
+                class="form-control mono"
+                placeholder="0"
+                value="{{ meta_hoy.meta|default_if_none:'' }}"
+                autofocus
+                required
+            >
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">
+                <span class="material-icons-round">flag</span>
+                Guardar Meta
+            </button>
+            <a href="{% url 'trazapp:home' %}" class="btn btn-ghost">
+                <span class="material-icons-round">arrow_back</span>
+                Volver
+            </a>
+        </div>
+    </form>
+
+</div>
+
+{% endblock %}

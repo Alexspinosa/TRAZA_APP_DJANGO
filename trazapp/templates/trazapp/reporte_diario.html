@@ -1,0 +1,72 @@
+{% extends 'trazapp/base.html' %}
+
+{% block title %}Reporte Diario{% endblock %}
+{% block breadcrumb %}Reporte Diario{% endblock %}
+{% block page_title %}Reporte Diario{% endblock %}
+{% block nav_reporte %}is-active{% endblock %}
+
+{% block content %}
+
+<div class="panel" style="margin-bottom:18px;">
+    <div class="report-hero">
+        <div>
+            <div class="date">{{ hoy|date:"l, d \d\e F \d\e Y" }}</div>
+            <h3 style="font-size:1.1rem; margin-top:4px;">Cumplimiento del día</h3>
+        </div>
+        <div class="pct {% if cumplimiento >= 100 %}ok{% elif cumplimiento >= 80 %}warn{% else %}bad{% endif %}">
+            {{ cumplimiento }}%
+        </div>
+    </div>
+    <div class="progress-track" style="margin-top:16px;">
+        <div class="progress-fill" style="width:{{ cumplimiento }}%; background:
+            {% if cumplimiento >= 100 %}var(--teal){% elif cumplimiento >= 80 %}var(--amber){% else %}var(--rose){% endif %};">
+        </div>
+    </div>
+</div>
+
+<div class="kpi-row">
+    <div class="kpi-card" data-accent="teal">
+        <div class="kpi-top">
+            <span class="kpi-label">Entradas</span>
+            <span class="kpi-icon"><span class="material-icons-round">login</span></span>
+        </div>
+        <div class="kpi-value">{{ entradas }}</div>
+        <div class="kpi-sub">cilindros ingresados</div>
+    </div>
+
+    <div class="kpi-card" data-accent="rose">
+        <div class="kpi-top">
+            <span class="kpi-label">Salidas</span>
+            <span class="kpi-icon"><span class="material-icons-round">logout</span></span>
+        </div>
+        <div class="kpi-value">{{ cantidad_salida }}</div>
+        <div class="kpi-sub">cilindros despachados</div>
+    </div>
+
+    <div class="kpi-card" data-accent="indigo">
+        <div class="kpi-top">
+            <span class="kpi-label">Meta</span>
+            <span class="kpi-icon"><span class="material-icons-round">flag</span></span>
+        </div>
+        <div class="kpi-value">{{ cantidad_meta }}</div>
+        <div class="kpi-sub">objetivo del día</div>
+    </div>
+
+    <div class="kpi-card" data-accent="amber">
+        <div class="kpi-top">
+            <span class="kpi-label">Diferencia</span>
+            <span class="kpi-icon"><span class="material-icons-round">compare_arrows</span></span>
+        </div>
+        <div class="kpi-value">{{ diferencia }}</div>
+        <div class="kpi-sub">entradas vs salidas</div>
+    </div>
+</div>
+
+<div class="panel" style="text-align:center;">
+    <a href="{% url 'trazapp:home' %}" class="btn btn-ghost">
+        <span class="material-icons-round">arrow_back</span>
+        Volver al Dashboard
+    </a>
+</div>
+
+{% endblock %}

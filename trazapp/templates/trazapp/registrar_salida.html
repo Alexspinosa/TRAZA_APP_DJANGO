@@ -1,0 +1,51 @@
+{% extends 'trazapp/base.html' %}
+
+{% block title %}Registrar Salida{% endblock %}
+{% block breadcrumb %}Registrar Salida{% endblock %}
+{% block page_title %}Registrar Salida{% endblock %}
+{% block nav_salida %}is-active{% endblock %}
+
+{% block content %}
+
+<div class="panel form-panel">
+
+    {% if salida_hoy %}
+    <div class="current-value-banner">
+        <span class="material-icons-round">info</span>
+        Ya registraste <strong>{{ salida_hoy.cantidad }}</strong> cilindros de salida hoy. Guardar de nuevo actualiza el valor.
+    </div>
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <div class="field">
+            <label for="cantidad">Cantidad de cilindros despachados</label>
+            <input
+                type="number"
+                min="0"
+                id="cantidad"
+                name="cantidad"
+                class="form-control mono"
+                placeholder="0"
+                value="{{ salida_hoy.cantidad|default_if_none:'' }}"
+                autofocus
+                required
+            >
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">
+                <span class="material-icons-round">check_circle</span>
+                Guardar Salida
+            </button>
+            <a href="{% url 'trazapp:home' %}" class="btn btn-ghost">
+                <span class="material-icons-round">arrow_back</span>
+                Volver
+            </a>
+        </div>
+    </form>
+
+</div>
+
+{% endblock %}
