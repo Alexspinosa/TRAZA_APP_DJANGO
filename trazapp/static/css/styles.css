@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 
 /* =========================================================
-   TRAZAPP · DESIGN TOKENS
+    TRAZAPP · DESIGN TOKENS
    ========================================================= */
 :root{
     /* Superficie */
@@ -55,7 +55,7 @@
 }
 
 /* =========================================================
-   RESET
+    RESET
    ========================================================= */
 *{ margin:0; padding:0; box-sizing:border-box; }
 
@@ -69,7 +69,7 @@ body{
 ::selection{ background:var(--teal); color:#fff; }
 
 /* =========================================================
-   LAYOUT
+    LAYOUT
    ========================================================= */
 .app-shell{
     display:flex;
@@ -77,7 +77,7 @@ body{
 }
 
 /* =========================================================
-   SIDEBAR
+    SIDEBAR-logo
    ========================================================= */
 .sidebar{
     width:264px;
@@ -107,21 +107,23 @@ body{
     font-weight:700;
     font-size:.95rem;
     flex-shrink:0;
+    gap:5px;
 }
 
-.sidebar-brand .name{
-    color:var(--side-text-hi);
-    font-weight:700;
-    font-size:1.02rem;
-    line-height:1.1;
-}
+        .sidebar-brand .name{
+            color:var(--side-text-hi);
+            font-weight:700;
+            font-size:1.02rem;
+            line-height:1.2;
+        }
 
-.sidebar-brand .sub{
-    color:var(--side-text);
-    font-size:.72rem;
-    letter-spacing:.03em;
-    text-transform:uppercase;
-}
+        .sidebar-brand .sub{
+            color:var(--side-text);
+            font-size:.70rem;
+            letter-spacing:.08em;
+            margin-top: 4px;
+            text-transform:uppercase; 
+        }
 
 /* --- La "línea de traza": el recorrido del cilindro por la planta --- */
 .trace-nav{
@@ -206,7 +208,7 @@ body{
 .sidebar-footer .trace-item{ margin-bottom:0; }
 
 /* =========================================================
-   MAIN
+    MAIN
    ========================================================= */
 .main-panel{
     flex:1;
@@ -217,7 +219,7 @@ body{
 }
 
 /* =========================================================
-   TOPBAR
+    TOPBAR
    ========================================================= */
 .topbar{
     background:var(--surface);
@@ -294,7 +296,7 @@ body{
 }
 
 /* =========================================================
-   CONTENT WRAPPER
+    CONTENT WRAPPER
    ========================================================= */
 .content{
     padding:24px 28px 32px;
@@ -302,7 +304,7 @@ body{
 }
 
 /* =========================================================
-   KPI CARDS
+    KPI CARDS
    ========================================================= */
 .kpi-row{
     display:grid;
@@ -376,7 +378,7 @@ body{
 }
 
 /* =========================================================
-   CHARTS
+    CHARTS
    ========================================================= */
 .chart-row{
     display:grid;
@@ -428,7 +430,7 @@ body{
 }
 
 /* =========================================================
-   TABLE PANEL
+    TABLE PANEL
    ========================================================= */
 .table-panel table{
     width:100%;
@@ -476,7 +478,7 @@ body{
 .badge-amber{ background:var(--amber-soft); color:var(--amber); }
 
 /* =========================================================
-   PROGRESS
+    PROGRESS
    ========================================================= */
 .progress-track{
     height:7px;
@@ -487,7 +489,7 @@ body{
 .progress-fill{ height:100%; border-radius:999px; }
 
 /* =========================================================
-   BUTTONS
+    BUTTONS
    ========================================================= */
 .btn{
     display:inline-flex;
@@ -509,7 +511,7 @@ body{
 .btn-ghost:hover{ background:var(--border); }
 
 /* =========================================================
-   ALERTS
+    ALERTS
    ========================================================= */
 .alert{
     border-radius:var(--radius-md);
@@ -523,7 +525,7 @@ body{
 .alert-warning{ background:var(--amber-soft); color:#9a5b04; border-color:rgba(217,119,6,.25); }
 
 /* =========================================================
-   FORMULARIOS
+    FORMULARIOS
    ========================================================= */
 .form-panel{
     max-width:520px;
@@ -625,7 +627,7 @@ select.form-control{
 .report-hero .pct.bad{ color:var(--rose); }
 
 /* =========================================================
-   MOBILE
+    MOBILE
    ========================================================= */
 .sidenav-toggle{ display:none; }
 

@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.utils import timezone
 from django.contrib import messages
-from .models import Cilindro, Entrada, SalidaDiaria, MetaDiaria, TipoCilindro, Color
+from .models import Cilindro, Entrada, Salida, SalidaDiaria, MetaDiaria, TipoCilindro, Color
 
 
 def home(request):
@@ -9,10 +9,9 @@ def home(request):
     hoy = timezone.now().date()
 
     entradas = Entrada.objects.filter(fecha_hora__date=hoy).count()
-    salida = SalidaDiaria.objects.filter(fecha=hoy).first()
+    cantidad_salida = Salida.objects.filter(fecha_hora__date=hoy).count()
     meta = MetaDiaria.objects.filter(fecha=hoy).first()
 
-    cantidad_salida = salida.cantidad if salida else 0
     cantidad_meta = meta.meta if meta else 0
 
     cumplimiento = 0
@@ -86,21 +85,38 @@ def crear_cilindro(request):
 
 
 def registrar_salida(request):
-    """Registrar salida diaria"""
+    """Registrar salida de cilindro por NIIF"""
     hoy = timezone.now().date()
 
     if request.method == 'POST':
-        cantidad = request.POST.get('cantidad')
-        SalidaDiaria.objects.update_or_create(
-            fecha=hoy,
-            defaults={'cantidad': cantidad}
-        )
-        messages.success(request, f'Salida del día registrada: {cantidad} cilindros.')
+        codigo_niif = request.POST.get('codigo_niif', '').strip()
+
+        if not codigo_niif:
+            messages.error(request, 'Ingresa un código NIIF.')
+            return render(request, 'trazapp/registrar_salida.html')
+
+        try:
+            cilindro = Cilindro.objects.get(codigo_niif=codigo_niif)
+        except Cilindro.DoesNotExist:
+            messages.error(request, f'El cilindro {codigo_niif} no existe. Verifica el código.')
+            return render(request, 'trazapp/registrar_salida.html')
+
+        ya_salio_hoy = Salida.objects.filter(cilindro=cilindro, fecha_hora__date=hoy).exists()
+        if ya_salio_hoy:
+            messages.warning(request, f'El cilindro {codigo_niif} ya tiene una salida registrada hoy.')
+            return redirect('trazapp:registrar_salida')
+
+        Salida.objects.create(cilindro=cilindro)
+        messages.success(request, f'Salida registrada para {codigo_niif}.')
         return redirect('trazapp:home')
 
-    salida_hoy = SalidaDiaria.objects.filter(fecha=hoy).first()
+    salidas_hoy = Salida.objects.filter(
+        fecha_hora__date=hoy
+    ).select_related('cilindro__tipo', 'cilindro__color').order_by('-fecha_hora')[:10]
+
     return render(request, 'trazapp/registrar_salida.html', {
-        'salida_hoy': salida_hoy
+        'salidas_hoy': salidas_hoy,
+        'total_salidas_hoy': salidas_hoy.count() if hasattr(salidas_hoy, 'count') else len(salidas_hoy),
     })
 
 
@@ -128,10 +144,9 @@ def reporte_diario(request):
     hoy = timezone.now().date()
 
     entradas = Entrada.objects.filter(fecha_hora__date=hoy).count()
-    salida = SalidaDiaria.objects.filter(fecha=hoy).first()
+    cantidad_salida = Salida.objects.filter(fecha_hora__date=hoy).count()
     meta = MetaDiaria.objects.filter(fecha=hoy).first()
 
-    cantidad_salida = salida.cantidad if salida else 0
     cantidad_meta = meta.meta if meta else 0
 
     cumplimiento = 0

@@ -30,35 +30,34 @@
 
         <nav class="trace-nav">
             <a href="{% url 'trazapp:home' %}"
-               class="trace-item {% block nav_home %}{% endblock %}">
+                class="trace-item {% block nav_home %}{% endblock %}">
                 <span class="node"><span class="material-icons-round">dashboard</span></span>
                 Dashboard
             </a>
 
             <a href="{% url 'trazapp:registrar_entrada' %}"
-               data-accent="teal"
-               class="trace-item {% block nav_entrada %}{% endblock %}">
+                class="trace-item {% block nav_entrada %}{% endblock %}">
                 <span class="node"><span class="material-icons-round">login</span></span>
                 Registrar Entrada
             </a>
 
             <a href="{% url 'trazapp:registrar_salida' %}"
-               data-accent="rose"
-               class="trace-item {% block nav_salida %}{% endblock %}">
+                data-accent="rose" 
+                class="trace-item {% block nav_salida %}{% endblock %}">
                 <span class="node"><span class="material-icons-round">logout</span></span>
                 Registrar Salida
             </a>
 
             <a href="{% url 'trazapp:registrar_meta' %}"
-               data-accent="indigo"
-               class="trace-item {% block nav_meta %}{% endblock %}">
+                data-accent="indigo"
+                class="trace-item {% block nav_meta %}{% endblock %}">
                 <span class="node"><span class="material-icons-round">flag</span></span>
                 Meta Diaria
             </a>
 
             <a href="{% url 'trazapp:reporte_diario' %}"
-               data-accent="amber"
-               class="trace-item {% block nav_reporte %}{% endblock %}">
+                data-accent="amber"
+                class="trace-item {% block nav_reporte %}{% endblock %}">
                 <span class="node"><span class="material-icons-round">bar_chart</span></span>
                 Reporte Diario
             </a>

@@ -22,6 +22,7 @@ class MetaDiaria(models.Model):
     registrado_en = models.DateTimeField(auto_now_add=True)
 
     class Meta:
+        
         verbose_name = 'Meta Diaria'
         verbose_name_plural = 'Metas Diarias'
         ordering = ['-fecha']

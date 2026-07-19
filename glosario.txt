@@ -1,0 +1,100 @@
+╔════════════════════════════════════════════════════════════════════════════╗
+║                    GLOSARIO DE TÉRMINOS DEL NEGOCIO                        ║
+║                            TrazApp v1.0                                    ║
+╚════════════════════════════════════════════════════════════════════════════╝
+
+Proyecto: TrazApp
+Versión: 1.0
+Fecha de Actualización: 2026-07-18
+
+═══════════════════════════════════════════════════════════════════════════════
+
+┌─ CONCEPTOS BASE ─────────────────────────────────────────────────────────────
+
+1. CILINDRO
+   Definición: Recipiente utilizado para almacenar gas GLP. Es el elemento 
+               principal del sistema y sobre él se registra toda la trazabilidad 
+               durante el proceso de mantenimiento.
+
+2. NIIF
+   Definición: Identificador único del cilindro. Permite reconocerlo de forma 
+               individual y consultar su historial dentro del sistema. Nunca 
+               debe repetirse entre cilindros.
+
+3. TRAZABILIDAD
+   Definición: Capacidad de conocer el recorrido completo de un cilindro, 
+               registrando cada actividad realizada desde su ingreso hasta su 
+               salida de la planta.
+
+4. TRAZAR
+   Definición: Acción de registrar la lectura del código NIIF de un cilindro 
+               para dejar evidencia de su paso por una etapa del proceso de 
+               mantenimiento.
+
+5. ETIQUETA
+   Definición: Adhesivo que contiene el código de identificación del cilindro 
+               (NIIF), permitiendo su lectura mediante escáner o captura manual.
+
+└──────────────────────────────────────────────────────────────────────────────
+
+┌─ PROCESOS Y OPERACIONES ─────────────────────────────────────────────────────
+
+6. ENTRADA
+   Definición: Registro que indica el ingreso físico de un cilindro a la 
+               planta para iniciar el proceso de mantenimiento.
+
+7. SALIDA
+   Definición: Registro que indica que el cilindro finalizó su proceso y fue 
+               despachado o retirado de la planta.
+
+8. CREAR NIIF
+   Definición: Proceso mediante el cual se asigna y registra un nuevo código 
+               NIIF a un cilindro que aún no existe en Trackabout.
+
+9. PINTURA
+   Definición: Etapa del proceso de mantenimiento en la que el cilindro es 
+               preparado y pintado para su posterior salida.
+
+10. MANTENIMIENTO
+    Definición: Conjunto de actividades realizadas sobre un cilindro para 
+                dejarlo en condiciones adecuadas antes de su despacho. Puede 
+                incluir trazabilidad, creación de NIIF, etiquetado y pintura.
+
+└──────────────────────────────────────────────────────────────────────────────
+
+┌─ SISTEMAS Y HERRAMIENTAS ────────────────────────────────────────────────────
+
+11. TRACKABOUT
+    Definición: Sistema externo utilizado para consultar, validar y administrar 
+                la información oficial de los cilindros antes de realizar su 
+                trazabilidad.
+
+└──────────────────────────────────────────────────────────────────────────────
+
+┌─ ROLES Y RESPONSABILIDADES ──────────────────────────────────────────────────
+
+12. OPERARIO
+    Definición: Persona encargada de ejecutar las actividades del proceso, 
+                como registrar entradas, realizar la trazabilidad, crear NIIF, 
+                etiquetar y registrar salidas.
+
+13. SUPERVISOR
+    Definición: Usuario responsable de controlar la operación, revisar 
+                indicadores, validar procesos y supervisar el trabajo de los 
+                operarios.
+
+└──────────────────────────────────────────────────────────────────────────────
+
+┌─ INDICADORES DE PRODUCCIÓN ──────────────────────────────────────────────────
+
+14. PRODUCCIÓN
+    Definición: Resultado del trabajo realizado durante una jornada, medido 
+                mediante indicadores como cilindros procesados, entradas, salidas 
+                y cumplimiento de metas.
+
+15. META DIARIA
+    Definición: Cantidad de cilindros que se espera procesar durante una 
+                jornada laboral. Sirve para medir el desempeño y el cumplimiento 
+                de los objetivos de producción.
+
+└──────────────────────────────────────────────────────────────────────────────
