@@ -69,7 +69,7 @@
 
     <div class="panel table-panel">
         <div class="panel-head">
-            <h3>Últimas entradas</h3>
+            <h3>Últimos movimientos</h3>
             <span class="hint">cilindros registrados hoy</span>
         </div>
         <table>
@@ -79,22 +79,28 @@
                     <th>Tipo</th>
                     <th>Color</th>
                     <th>Hora</th>
-                    <th>Estado</th>
+                    <th>Movimiento</th>
                 </tr>
             </thead>
             <tbody>
-                {% for entrada in ultimas_entradas %}
+                {% for mov in ultimos_movimientos %}
                 <tr>
-                    <td class="cyl-code">{{ entrada.cilindro.codigo_niif }}</td>
-                    <td>{{ entrada.cilindro.tipo }}</td>
-                    <td>{{ entrada.cilindro.color }}</td>
-                    <td>{{ entrada.fecha_hora|time:"H:i" }}</td>
-                    <td><span class="badge badge-teal">Registrado</span></td>
+                    <td class="cyl-code">{{ mov.registro.cilindro.codigo_niif }}</td>
+                    <td>{{ mov.registro.cilindro.tipo }}</td>
+                    <td>{{ mov.registro.cilindro.color }}</td>
+                    <td>{{ mov.registro.fecha_hora|time:"H:i" }}</td>
+                    <td>
+                        {% if mov.tipo_mov == 'Entrada' %}
+                        <span class="badge badge-teal">Entrada</span>
+                        {% else %}
+                        <span class="badge badge-rose">Salida</span>
+                        {% endif %}
+                    </td>
                 </tr>
                 {% empty %}
                 <tr>
                     <td colspan="5" style="text-align:center; color:var(--ink-faint); padding:24px;">
-                        No hay entradas registradas hoy.
+                        No hay movimientos registrados hoy.
                     </td>
                 </tr>
                 {% endfor %}

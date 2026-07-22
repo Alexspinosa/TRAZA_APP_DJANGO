@@ -40,4 +40,33 @@
 
 </div>
 
+{% if entradas_hoy %}
+<div class="panel table-panel" style="margin-top: 1.5rem;">
+    <div class="panel-head">
+        <h3>Entradas de hoy</h3>
+        <span class="hint">cilindros ingresados hoy</span>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Código NIIF</th>
+                <th>Tipo</th>
+                <th>Color</th>
+                <th>Hora</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for entrada in entradas_hoy %}
+            <tr>
+                <td class="cyl-code">{{ entrada.cilindro.codigo_niif }}</td>
+                <td>{{ entrada.cilindro.tipo }}</td>
+                <td>{{ entrada.cilindro.color }}</td>
+                <td>{{ entrada.fecha_hora|time:"H:i" }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endif %}
+
 {% endblock %}

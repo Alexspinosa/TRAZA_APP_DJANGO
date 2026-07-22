@@ -9,10 +9,10 @@
 
 <div class="panel form-panel">
 
-    {% if salida_hoy %}
+    {% if total_salidas_hoy %}
     <div class="current-value-banner">
         <span class="material-icons-round">info</span>
-        Ya registraste <strong>{{ salida_hoy.cantidad }}</strong> cilindros de salida hoy. Guardar de nuevo actualiza el valor.
+        Llevas <strong>{{ total_salidas_hoy }}</strong> cilindros con salida registrada hoy.
     </div>
     {% endif %}
 
@@ -20,18 +20,17 @@
         {% csrf_token %}
 
         <div class="field">
-            <label for="cantidad">Cantidad de cilindros despachados</label>
+            <label for="codigo_niif">Código NIIF</label>
             <input
-                type="number"
-                min="0"
-                id="cantidad"
-                name="cantidad"
+                type="text"
+                id="codigo_niif"
+                name="codigo_niif"
                 class="form-control mono"
-                placeholder="0"
-                value="{{ salida_hoy.cantidad|default_if_none:'' }}"
+                placeholder="Escanea o escribe el código"
                 autofocus
                 required
             >
+            <p class="hint-text">El cilindro debe existir y no haber tenido salida hoy.</p>
         </div>
 
         <div class="form-actions">
@@ -47,5 +46,34 @@
     </form>
 
 </div>
+
+{% if salidas_hoy %}
+<div class="panel table-panel" style="margin-top: 1.5rem;">
+    <div class="panel-head">
+        <h3>Salidas de hoy</h3>
+        <span class="hint">cilindros despachados hoy</span>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Código NIIF</th>
+                <th>Tipo</th>
+                <th>Color</th>
+                <th>Hora</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for salida in salidas_hoy %}
+            <tr>
+                <td class="cyl-code">{{ salida.cilindro.codigo_niif }}</td>
+                <td>{{ salida.cilindro.tipo }}</td>
+                <td>{{ salida.cilindro.color }}</td>
+                <td>{{ salida.fecha_hora|time:"H:i" }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endif %}
 
 {% endblock %}
