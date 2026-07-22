@@ -20,9 +20,20 @@ def home(request):
 
     diferencia = entradas - cantidad_salida
 
-    ultimas_entradas = Entrada.objects.filter(
+    entradas_qs = Entrada.objects.filter(
         fecha_hora__date=hoy
-    ).select_related('cilindro__tipo', 'cilindro__color').order_by('-fecha_hora')[:10]
+    ).select_related('cilindro__tipo', 'cilindro__color')
+
+    salidas_qs = Salida.objects.filter(
+        fecha_hora__date=hoy
+    ).select_related('cilindro__tipo', 'cilindro__color')
+
+    ultimos_movimientos = sorted(
+        [{'tipo_mov': 'Entrada', 'registro': e} for e in entradas_qs] +
+        [{'tipo_mov': 'Salida', 'registro': s} for s in salidas_qs],
+        key=lambda m: m['registro'].fecha_hora,
+        reverse=True
+    )[:10]
 
     return render(request, 'trazapp/home.html', {
         'entradas': entradas,
@@ -30,12 +41,14 @@ def home(request):
         'cantidad_meta': cantidad_meta,
         'cumplimiento': cumplimiento,
         'diferencia': diferencia,
-        'ultimas_entradas': ultimas_entradas,
+        'ultimos_movimientos': ultimos_movimientos,
     })
 
 
 def registrar_entrada(request):
     """Registrar entrada de cilindro por NIIF"""
+    hoy = timezone.now().date()
+
     if request.method == 'POST':
         codigo_niif = request.POST.get('codigo_niif', '').strip()
 
@@ -52,7 +65,14 @@ def registrar_entrada(request):
             messages.warning(request, f'Cilindro {codigo_niif} no existe. Créalo primero.')
             return redirect(f'/cilindro/crear/?codigo_niif={codigo_niif}')
 
-    return render(request, 'trazapp/registrar_entrada.html')
+    entradas_hoy = Entrada.objects.filter(
+        fecha_hora__date=hoy
+    ).select_related('cilindro__tipo', 'cilindro__color').order_by('-fecha_hora')[:10]
+
+    return render(request, 'trazapp/registrar_entrada.html', {
+        'entradas_hoy': entradas_hoy,
+        'total_entradas_hoy': entradas_hoy.count() if hasattr(entradas_hoy, 'count') else len(entradas_hoy),
+    })
 
 
 def crear_cilindro(request):

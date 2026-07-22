@@ -117,4 +117,4 @@ class MetaDiariaAdmin(admin.ModelAdmin):
     )
     ordering = ("-fecha",)
     date_hierarchy = "fecha"
-    list_per_page = 25
+    list_per_page = 25  
