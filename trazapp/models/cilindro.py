@@ -12,7 +12,8 @@ class TipoCilindro(models.Model):
         verbose_name = 'Tipo de Cilindro'
         verbose_name_plural = 'Tipos de Cilindro'
         ordering = ['nombre']
-
+    
+    # *Define cómo se ve un objeto de este modelo cuando lo imprimes o lo ves en el admin 
     def __str__(self):
         return f'{self.nombre} - {self.capacidad} kg'
 

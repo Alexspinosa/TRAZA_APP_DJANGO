@@ -1,4 +1,4 @@
-#Modelos indentifica Meta
+# Modelos para el control de producción
 
 from django.db import models
 
