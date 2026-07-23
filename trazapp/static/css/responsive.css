@@ -1,0 +1,20 @@
+/* =========================================================
+    MOBILE
+   ========================================================= */
+.sidenav-toggle{ display:none; }
+
+@media (max-width: 992px){
+    .sidebar{ transform:translateX(-100%); transition:transform .25s ease; }
+    .sidebar.is-open{ transform:translateX(0); }
+    .main-panel{ margin-left:0; }
+    .sidenav-toggle{ display:flex; }
+    .kpi-row{ grid-template-columns:repeat(2,1fr); }
+    .chart-row{ grid-template-columns:1fr; }
+}
+
+@media (max-width: 576px){
+    .kpi-row{ grid-template-columns:1fr; }
+    .search-box{ display:none; }
+    .topbar{ padding:14px 16px; }
+    .content{ padding:18px 16px 26px; }
+}

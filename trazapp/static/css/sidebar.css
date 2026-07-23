@@ -1,0 +1,142 @@
+/* =========================================================
+    SIDEBAR-logo
+   ========================================================= */
+.sidebar{
+    width:264px;
+    flex-shrink:0;
+    background:linear-gradient(180deg,var(--side-start),var(--side-end));
+    position:fixed;
+    top:0; left:0; bottom:0;
+    display:flex;
+    flex-direction:column;
+    z-index:40;
+}
+
+.sidebar-brand{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:26px 22px 22px;
+}
+
+.sidebar-brand .mark{
+    width:40px; height:40px;
+    border-radius:11px;
+    background:linear-gradient(135deg,var(--teal),#0b6e65);
+    display:flex; align-items:center; justify-content:center;
+    color:#fff;
+    font-family:var(--font-mono);
+    font-weight:700;
+    font-size:.95rem;
+    flex-shrink:0;
+    gap:5px;
+}
+
+        .sidebar-brand .name{
+            color:var(--side-text-hi);
+            font-weight:700;
+            font-size:1.02rem;
+            line-height:1.2;
+        }
+
+        .sidebar-brand .sub{
+            color:var(--side-text);
+            font-size:.70rem;
+            letter-spacing:.08em;
+            margin-top: 4px;
+            text-transform:uppercase; 
+        }
+
+/* --- La "línea de traza": el recorrido del cilindro por la planta --- */
+.trace-nav{
+    position:relative;
+    flex:1;
+    padding:14px 16px 20px;
+    overflow-y:auto;
+}
+
+.trace-nav::before{
+    content:"";
+    position:absolute;
+    top:26px;
+    bottom:26px;
+    left:38px;
+    width:0;
+    border-left:2px dashed rgba(141,150,163,.28);
+}
+
+.trace-item{
+    position:relative;
+    display:flex;
+    align-items:center;
+    gap:14px;
+    padding:11px 12px;
+    margin-bottom:2px;
+    border-radius:var(--radius-sm);
+    text-decoration:none;
+    color:var(--side-text);
+    font-size:.88rem;
+    font-weight:500;
+    transition:background .2s ease, color .2s ease;
+}
+
+.trace-item .node{
+    position:relative;
+    z-index:1;
+    width:24px; height:24px;
+    border-radius:50%;
+    background:#232b36;
+    border:2px solid rgba(141,150,163,.3);
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    transition:.2s ease;
+}
+
+.trace-item .node .material-icons-round{
+    font-size:14px;
+    color:var(--side-text);
+}
+
+.trace-item:hover{
+    background:rgba(255,255,255,.05);
+    color:var(--side-text-hi);
+}
+
+.trace-item.is-active{
+    background:rgba(15,148,136,.14);
+    color:var(--side-text-hi);
+}
+
+.trace-item.is-active .node{
+    background:var(--teal);
+    border-color:var(--teal);
+}
+.trace-item.is-active .node .material-icons-round{ color:#fff; }
+
+.trace-item[data-accent="rose"].is-active .node{ background:var(--rose); border-color:var(--rose); }
+.trace-item[data-accent="indigo"].is-active .node{ background:var(--indigo); border-color:var(--indigo); }
+.trace-item[data-accent="amber"].is-active .node{ background:var(--amber); border-color:var(--amber); }
+
+.trace-divider{
+    height:1px;
+    background:rgba(141,150,163,.16);
+    margin:14px 12px 14px 38px;
+}
+
+.trace-section-label{
+    position:relative;
+    z-index:1;
+    font-size:.68rem;
+    font-weight:700;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--side-text);
+    opacity:.55;
+    padding:16px 12px 6px 38px;
+}
+
+.sidebar-footer{
+    padding:16px 16px 20px;
+}
+
+.sidebar-footer .trace-item{ margin-bottom:0; }

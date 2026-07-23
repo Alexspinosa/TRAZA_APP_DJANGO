@@ -1,0 +1,35 @@
+/* =========================================================
+    BUTTONS
+   ========================================================= */
+.btn{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    border:none;
+    border-radius:10px;
+    padding:10px 18px;
+    font-family:var(--font-ui);
+    font-weight:600;
+    font-size:.86rem;
+    cursor:pointer;
+    transition:.2s ease;
+}
+.btn .material-icons-round{ font-size:17px; }
+.btn-primary{ background:var(--teal); color:#fff; }
+.btn-primary:hover{ background:#0b7b70; }
+.btn-ghost{ background:var(--surface-alt); color:var(--ink); border:1px solid var(--border); }
+.btn-ghost:hover{ background:var(--border); }
+
+/* =========================================================
+    ALERTS
+   ========================================================= */
+.alert{
+    border-radius:var(--radius-md);
+    padding:13px 16px;
+    font-size:.88rem;
+    margin-bottom:16px;
+    border:1px solid transparent;
+}
+.alert-success{ background:var(--teal-soft); color:#0b6e65; border-color:rgba(15,148,136,.25); }
+.alert-error, .alert-danger{ background:var(--rose-soft); color:#a1123a; border-color:rgba(225,29,72,.25); }
+.alert-warning{ background:var(--amber-soft); color:#9a5b04; border-color:rgba(217,119,6,.25); }

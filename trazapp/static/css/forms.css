@@ -1,0 +1,101 @@
+/* =========================================================
+    FORMULARIOS
+   ========================================================= */
+.form-panel{
+    max-width:520px;
+}
+
+.field{
+    margin-bottom:18px;
+}
+
+.field label{
+    display:block;
+    font-size:.84rem;
+    font-weight:600;
+    color:var(--ink);
+    margin-bottom:7px;
+}
+
+.field .hint-text{
+    font-size:.78rem;
+    color:var(--ink-faint);
+    margin-top:5px;
+}
+
+.form-control{
+    width:100%;
+    font-family:var(--font-ui);
+    font-size:.92rem;
+    padding:11px 14px;
+    border-radius:var(--radius-sm);
+    border:1px solid var(--border);
+    background:var(--surface);
+    color:var(--ink);
+    outline:none;
+    transition:border-color .2s ease, box-shadow .2s ease;
+}
+
+.form-control:focus{
+    border-color:var(--teal);
+    box-shadow:0 0 0 3px var(--teal-soft);
+}
+
+input.form-control.mono, .form-control.mono{
+    font-family:var(--font-mono);
+}
+
+select.form-control{
+    appearance:none;
+    background-image:url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;
+    background-position:right 12px center;
+    background-size:16px;
+    padding-right:38px;
+}
+
+.form-actions{
+    display:flex;
+    gap:12px;
+    margin-top:22px;
+}
+
+.current-value-banner{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    background:var(--indigo-soft);
+    color:var(--indigo);
+    border-radius:var(--radius-sm);
+    padding:11px 14px;
+    font-size:.85rem;
+    margin-bottom:20px;
+}
+.current-value-banner .material-icons-round{ font-size:18px; }
+.current-value-banner strong{ font-family:var(--font-mono); }
+
+/* Reporte: bloque grande de cumplimiento */
+.report-hero{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:24px;
+    flex-wrap:wrap;
+}
+
+.report-hero .date{
+    font-size:.85rem;
+    color:var(--ink-faint);
+    text-transform:capitalize;
+}
+
+.report-hero .pct{
+    font-family:var(--font-mono);
+    font-size:2.6rem;
+    font-weight:800;
+    line-height:1;
+}
+
+.report-hero .pct.ok{ color:var(--teal); }
+.report-hero .pct.warn{ color:var(--amber); }
+.report-hero .pct.bad{ color:var(--rose); }

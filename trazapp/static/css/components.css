@@ -1,0 +1,192 @@
+/* =========================================================
+    CONTENT WRAPPER
+   ========================================================= */
+.content{
+    padding:24px 28px 32px;
+    flex:1;
+}
+
+/* =========================================================
+    KPI CARDS
+   ========================================================= */
+.kpi-row{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:18px;
+    margin-bottom:22px;
+}
+
+.kpi-card{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:var(--radius-lg);
+    box-shadow:var(--shadow-card);
+    padding:20px;
+    position:relative;
+    overflow:hidden;
+}
+
+.kpi-card::before{
+    content:"";
+    position:absolute;
+    top:0; left:0;
+    width:4px; height:100%;
+}
+.kpi-card[data-accent="teal"]::before{ background:var(--teal); }
+.kpi-card[data-accent="rose"]::before{ background:var(--rose); }
+.kpi-card[data-accent="indigo"]::before{ background:var(--indigo); }
+.kpi-card[data-accent="amber"]::before{ background:var(--amber); }
+
+.kpi-top{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+}
+
+.kpi-label{
+    font-size:.72rem;
+    font-weight:700;
+    letter-spacing:.05em;
+    text-transform:uppercase;
+    color:var(--ink-faint);
+}
+
+.kpi-icon{
+    width:34px; height:34px;
+    border-radius:9px;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+}
+.kpi-icon .material-icons-round{ font-size:18px; }
+.kpi-card[data-accent="teal"] .kpi-icon{ background:var(--teal-soft); color:var(--teal); }
+.kpi-card[data-accent="rose"] .kpi-icon{ background:var(--rose-soft); color:var(--rose); }
+.kpi-card[data-accent="indigo"] .kpi-icon{ background:var(--indigo-soft); color:var(--indigo); }
+.kpi-card[data-accent="amber"] .kpi-icon{ background:var(--amber-soft); color:var(--amber); }
+
+.kpi-value{
+    font-family:var(--font-mono);
+    font-size:1.9rem;
+    font-weight:700;
+    margin-top:10px;
+    letter-spacing:-.02em;
+}
+
+.kpi-sub{
+    font-size:.8rem;
+    color:var(--ink-soft);
+    margin-top:4px;
+    display:flex;
+    align-items:center;
+    gap:5px;
+}
+
+/* =========================================================
+    CHARTS
+   ========================================================= */
+.chart-row{
+    display:grid;
+    grid-template-columns:1.6fr 1fr;
+    gap:18px;
+    margin-bottom:22px;
+}
+
+.panel{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:var(--radius-lg);
+    box-shadow:var(--shadow-card);
+    padding:20px 22px;
+}
+
+.panel-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:16px;
+}
+
+.panel-head h3{
+    font-size:.95rem;
+    font-weight:700;
+}
+
+.panel-head .hint{
+    font-size:.76rem;
+    color:var(--ink-faint);
+}
+
+.legend-row{
+    display:flex;
+    gap:16px;
+    margin-top:14px;
+    flex-wrap:wrap;
+}
+.legend-dot{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    font-size:.8rem;
+    color:var(--ink-soft);
+}
+.legend-dot i{
+    width:9px; height:9px; border-radius:50%; display:inline-block;
+}
+
+/* =========================================================
+    TABLE PANEL
+   ========================================================= */
+.table-panel table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+.table-panel thead th{
+    text-align:left;
+    font-size:.72rem;
+    text-transform:uppercase;
+    letter-spacing:.04em;
+    color:var(--ink-faint);
+    font-weight:700;
+    padding:10px 12px;
+    border-bottom:1px solid var(--border);
+}
+
+.table-panel tbody td{
+    padding:13px 12px;
+    font-size:.86rem;
+    color:var(--ink);
+    border-bottom:1px solid var(--border);
+}
+
+.table-panel tbody tr:last-child td{ border-bottom:none; }
+
+.cyl-code{
+    font-family:var(--font-mono);
+    font-weight:600;
+    font-size:.83rem;
+    color:var(--ink);
+}
+
+.badge{
+    display:inline-flex;
+    align-items:center;
+    gap:5px;
+    padding:4px 10px;
+    border-radius:999px;
+    font-size:.74rem;
+    font-weight:600;
+}
+.badge-teal{ background:var(--teal-soft); color:var(--teal); }
+.badge-rose{ background:var(--rose-soft); color:var(--rose); }
+.badge-amber{ background:var(--amber-soft); color:var(--amber); }
+
+/* =========================================================
+    PROGRESS
+   ========================================================= */
+.progress-track{
+    height:7px;
+    border-radius:999px;
+    background:var(--surface-alt);
+    overflow:hidden;
+}
+.progress-fill{ height:100%; border-radius:999px; }
