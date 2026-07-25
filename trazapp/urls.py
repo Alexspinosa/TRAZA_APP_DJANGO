@@ -1,4 +1,5 @@
 # Creamos las vista de la APP
+# Creamos las vista de la APP
 
 from django.urls import path
 from . import views
@@ -21,4 +22,13 @@ urlpatterns = [
 
     # Reporte
     path('reporte/', views.reporte_diario, name='reporte_diario'),
+
+    # Secciones del menú sin modelo propio todavía (solo vista/formulario)
+    path('vista/<slug:slug>/', views.vista_pendiente, name='vista_pendiente'),
+
+    # Mantenimiento — ruta por actividad
+    path('actividad/pintura/', views.registrar_pintura, name='registrar_pintura'),
+    path('actividad/reparacion/', views.registrar_reparacion, name='registrar_reparacion'),
+    path('actividad/cambio-valvula/', views.registrar_cambio_valvula, name='registrar_cambio_valvula'),
+    path('actividad/etiquetado/', views.registrar_etiquetado, name='registrar_etiquetado'),
 ]

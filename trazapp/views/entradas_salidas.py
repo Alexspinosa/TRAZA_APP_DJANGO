@@ -1,48 +1,8 @@
 from django.shortcuts import render, redirect
 from django.utils import timezone
 from django.contrib import messages
-from .models import Cilindro, Entrada, Salida, SalidaDiaria, MetaDiaria, TipoCilindro, Color
 
-
-def home(request):
-    """Pantalla principal del operario"""
-    hoy = timezone.now().date()
-
-    entradas = Entrada.objects.filter(fecha_hora__date=hoy).count()
-    cantidad_salida = Salida.objects.filter(fecha_hora__date=hoy).count()
-    meta = MetaDiaria.objects.filter(fecha=hoy).first()
-
-    cantidad_meta = meta.meta if meta else 0
-
-    cumplimiento = 0
-    if cantidad_meta > 0:
-        cumplimiento = round((entradas / cantidad_meta) * 100, 1)
-
-    diferencia = entradas - cantidad_salida
-
-    entradas_qs = Entrada.objects.filter(
-        fecha_hora__date=hoy
-    ).select_related('cilindro__tipo', 'cilindro__color')
-
-    salidas_qs = Salida.objects.filter(
-        fecha_hora__date=hoy
-    ).select_related('cilindro__tipo', 'cilindro__color')
-
-    ultimos_movimientos = sorted(
-        [{'tipo_mov': 'Entrada', 'registro': e} for e in entradas_qs] +
-        [{'tipo_mov': 'Salida', 'registro': s} for s in salidas_qs],
-        key=lambda m: m['registro'].fecha_hora,
-        reverse=True
-    )[:10]
-
-    return render(request, 'trazapp/home.html', {
-        'entradas': entradas,
-        'cantidad_salida': cantidad_salida,
-        'cantidad_meta': cantidad_meta,
-        'cumplimiento': cumplimiento,
-        'diferencia': diferencia,
-        'ultimos_movimientos': ultimos_movimientos,
-    })
+from ..models import Cilindro, Entrada, Salida, TipoCilindro, Color
 
 
 def registrar_entrada(request):
@@ -137,49 +97,4 @@ def registrar_salida(request):
     return render(request, 'trazapp/registrar_salida.html', {
         'salidas_hoy': salidas_hoy,
         'total_salidas_hoy': salidas_hoy.count() if hasattr(salidas_hoy, 'count') else len(salidas_hoy),
-    })
-
-
-def registrar_meta(request):
-    """Registrar meta diaria"""
-    hoy = timezone.now().date()
-
-    if request.method == 'POST':
-        meta = request.POST.get('meta')
-        MetaDiaria.objects.update_or_create(
-            fecha=hoy,
-            defaults={'meta': meta}
-        )
-        messages.success(request, f'Meta del día registrada: {meta} cilindros.')
-        return redirect('trazapp:home')
-
-    meta_hoy = MetaDiaria.objects.filter(fecha=hoy).first()
-    return render(request, 'trazapp/registrar_meta.html', {
-        'meta_hoy': meta_hoy
-    })
-
-
-def reporte_diario(request):
-    """Reporte del día"""
-    hoy = timezone.now().date()
-
-    entradas = Entrada.objects.filter(fecha_hora__date=hoy).count()
-    cantidad_salida = Salida.objects.filter(fecha_hora__date=hoy).count()
-    meta = MetaDiaria.objects.filter(fecha=hoy).first()
-
-    cantidad_meta = meta.meta if meta else 0
-
-    cumplimiento = 0
-    if cantidad_meta > 0:
-        cumplimiento = round((entradas / cantidad_meta) * 100, 1)
-
-    diferencia = entradas - cantidad_salida
-
-    return render(request, 'trazapp/reporte_diario.html', {
-        'hoy': hoy,
-        'entradas': entradas,
-        'cantidad_salida': cantidad_salida,
-        'cantidad_meta': cantidad_meta,
-        'cumplimiento': cumplimiento,
-        'diferencia': diferencia,
     })
