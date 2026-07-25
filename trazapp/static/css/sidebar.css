@@ -140,3 +140,46 @@
 }
 
 .sidebar-footer .trace-item{ margin-bottom:0; }
+
+/* --- Secciones colapsables --- */
+.nav-group{
+    margin-bottom:2px;
+}
+
+.nav-group-toggle{
+    width:100%;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    background:none;
+    border:none;
+    cursor:pointer;
+    padding:0;
+    font-family:var(--font-ui);
+}
+
+.nav-group-toggle .trace-section-label{
+    padding:16px 0 6px 38px;
+}
+
+.nav-chevron{
+    font-size:18px !important;
+    color:var(--side-text);
+    opacity:.6;
+    margin-right:10px;
+    transition:transform .2s ease;
+}
+
+.nav-group.is-open .nav-chevron{
+    transform:rotate(180deg);
+}
+
+.nav-group-items{
+    max-height:0;
+    overflow:hidden;
+    transition:max-height .25s ease;
+}
+
+.nav-group.is-open .nav-group-items{
+    max-height:600px;
+}

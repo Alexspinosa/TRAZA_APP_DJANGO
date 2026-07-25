@@ -41,39 +41,166 @@
                 Dashboard
             </a>
 
-            <a href="{% url 'trazapp:registrar_entrada' %}"
-                class="trace-item {% block nav_entrada %}{% endblock %}">
-                <span class="node"><span class="material-icons-round">login</span></span>
-                Registrar Entrada
-            </a>
+            <div class="nav-group" data-group="operacion-diaria" data-default-open="true">
+                <button type="button" class="nav-group-toggle">
+                    <span class="trace-section-label">Operación diaria</span>
+                    <span class="material-icons-round nav-chevron">expand_more</span>
+                </button>
+                <div class="nav-group-items">
+                    <a href="{% url 'trazapp:registrar_entrada' %}"
+                        class="trace-item {% block nav_entrada %}{% endblock %}">
+                        <span class="node"><span class="material-icons-round">login</span></span>
+                        Registrar Entrada
+                    </a>
 
-            <a href="{% url 'trazapp:registrar_salida' %}"
-                data-accent="rose" 
-                class="trace-item {% block nav_salida %}{% endblock %}">
-                <span class="node"><span class="material-icons-round">logout</span></span>
-                Registrar Salida
-            </a>
+                    <a href="{% url 'trazapp:registrar_salida' %}"
+                        data-accent="rose"
+                        class="trace-item {% block nav_salida %}{% endblock %}">
+                        <span class="node"><span class="material-icons-round">logout</span></span>
+                        Registrar Salida
+                    </a>
+                </div>
+            </div>
 
-            <a href="{% url 'trazapp:registrar_meta' %}"
-                data-accent="indigo"
-                class="trace-item {% block nav_meta %}{% endblock %}">
-                <span class="node"><span class="material-icons-round">flag</span></span>
-                Meta Diaria
-            </a>
+            <div class="nav-group" data-group="inspeccion-seguridad">
+                <button type="button" class="nav-group-toggle">
+                    <span class="trace-section-label">Inspección y seguridad</span>
+                    <span class="material-icons-round nav-chevron">expand_more</span>
+                </button>
+                <div class="nav-group-items">
+                    <a href="{% url 'trazapp:vista_pendiente' slug='inspeccion-visual' %}" class="trace-item">
+                        <span class="node"><span class="material-icons-round">shield</span></span>
+                        Inspección visual
+                    </a>
 
-            <a href="{% url 'trazapp:reporte_diario' %}"
-                data-accent="amber"
-                class="trace-item {% block nav_reporte %}{% endblock %}">
-                <span class="node"><span class="material-icons-round">bar_chart</span></span>
-                Reporte Diario
-            </a>
+                    <a href="{% url 'trazapp:vista_pendiente' slug='prueba-hidrostatica' %}" class="trace-item">
+                        <span class="node"><span class="material-icons-round">speed</span></span>
+                        Prueba hidrostática
+                    </a>
 
-            <div class="trace-divider"></div>
+                    <a href="{% url 'trazapp:vista_pendiente' slug='baja-rechazo' %}" class="trace-item">
+                        <span class="node"><span class="material-icons-round">report</span></span>
+                        Baja / rechazo
+                    </a>
+                </div>
+            </div>
 
-            <a href="/admin/" class="trace-item">
-                <span class="node"><span class="material-icons-round">settings</span></span>
-                Administración
-            </a>
+            <div class="nav-group" data-group="mantenimiento">
+                <button type="button" class="nav-group-toggle">
+                    <span class="trace-section-label">Mantenimiento</span>
+                    <span class="material-icons-round nav-chevron">expand_more</span>
+                </button>
+                <div class="nav-group-items">
+                    <a href="{% url 'trazapp:registrar_pintura' %}" class="trace-item">
+                        <span class="node"><span class="material-icons-round">format_paint</span></span>
+                        Pintura
+                    </a>
+
+                    <a href="{% url 'trazapp:registrar_reparacion' %}" class="trace-item">
+                        <span class="node"><span class="material-icons-round">build</span></span>
+                        Reparación
+                    </a>
+
+                    <a href="{% url 'trazapp:registrar_cambio_valvula' %}" class="trace-item">
+                        <span class="node"><span class="material-icons-round">plumbing</span></span>
+                        Cambio de válvula
+                    </a>
+
+                    <a href="{% url 'trazapp:registrar_etiquetado' %}" class="trace-item">
+                        <span class="node"><span class="material-icons-round">sell</span></span>
+                        Imprimir etiqueta
+                    </a>
+                    
+                </div>
+            </div>
+
+            <div class="nav-group" data-group="llenado">
+                <button type="button" class="nav-group-toggle">
+                    <span class="trace-section-label">Llenado</span>
+                    <span class="material-icons-round nav-chevron">expand_more</span>
+                </button>
+                <div class="nav-group-items">
+                    <a href="{% url 'trazapp:vista_pendiente' slug='registrar-llenado' %}" class="trace-item">
+                        <span class="node"><span class="material-icons-round">water_drop</span></span>
+                        Registrar llenado
+                    </a>
+
+                    <a href="{% url 'trazapp:vista_pendiente' slug='verificacion-peso' %}" class="trace-item">
+                        <span class="node"><span class="material-icons-round">scale</span></span>
+                        Verificación de peso
+                    </a>
+
+                    <a href="{% url 'trazapp:vista_pendiente' slug='etiquetado-sello' %}" class="trace-item">
+                        <span class="node"><span class="material-icons-round">sell</span></span>
+                        Etiquetado / sello
+                    </a>
+                </div>
+            </div>
+
+            <div class="nav-group" data-group="inventario">
+                <button type="button" class="nav-group-toggle">
+                    <span class="trace-section-label">Inventario</span>
+                    <span class="material-icons-round nav-chevron">expand_more</span>
+                </button>
+                <div class="nav-group-items">
+                    <a href="{% url 'trazapp:vista_pendiente' slug='bodega-llenos' %}" class="trace-item">
+                        <span class="node"><span class="material-icons-round">warehouse</span></span>
+                        Bodega de llenos
+                    </a>
+
+                    <a href="{% url 'trazapp:vista_pendiente' slug='bodega-vacios' %}" class="trace-item">
+                        <span class="node"><span class="material-icons-round">warehouse</span></span>
+                        Bodega de vacíos
+                    </a>
+                </div>
+            </div>
+
+            <div class="nav-group" data-group="trazabilidad">
+                <button type="button" class="nav-group-toggle">
+                    <span class="trace-section-label">Trazabilidad</span>
+                    <span class="material-icons-round nav-chevron">expand_more</span>
+                </button>
+                <div class="nav-group-items">
+                    <a href="{% url 'trazapp:vista_pendiente' slug='rastreo-cilindro' %}" class="trace-item">
+                        <span class="node"><span class="material-icons-round">route</span></span>
+                        Rastreo de cilindro
+                    </a>
+
+                    <a href="{% url 'trazapp:reporte_diario' %}"
+                        data-accent="amber"
+                        class="trace-item {% block nav_reporte %}{% endblock %}">
+                        <span class="node"><span class="material-icons-round">bar_chart</span></span>
+                        Reporte Diario
+                    </a>
+
+                    <a href="{% url 'trazapp:vista_pendiente' slug='historial-general' %}" class="trace-item">
+                        <span class="node"><span class="material-icons-round">history</span></span>
+                        Historial general
+                    </a>
+                </div>
+            </div>
+
+            <div class="nav-group" data-group="sistema" data-default-open="true">
+                <button type="button" class="nav-group-toggle">
+                    <span class="trace-section-label">Sistema</span>
+                    <span class="material-icons-round nav-chevron">expand_more</span>
+                </button>
+                <div class="nav-group-items">
+                    <a href="{% url 'trazapp:registrar_meta' %}"
+                        data-accent="indigo"
+                        class="trace-item {% block nav_meta %}{% endblock %}">
+                        <span class="node"><span class="material-icons-round">flag</span></span>
+                        Meta Diaria
+                    </a>
+
+                    <div class="trace-divider"></div>
+
+                    <a href="/admin/" class="trace-item">
+                        <span class="node"><span class="material-icons-round">settings</span></span>
+                        Administración
+                    </a>
+                </div>
+            </div>
         </nav>
     </aside>
 
