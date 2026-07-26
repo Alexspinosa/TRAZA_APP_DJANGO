@@ -1,0 +1,75 @@
+{% extends 'trazapp/base.html' %}
+
+{% block title %}Registrar pintura{% endblock %}
+{% block breadcrumb %}Mantenimiento / Pintura{% endblock %}
+{% block page_title %}Registrar pintura{% endblock %}
+
+{% block content %}
+
+<div class="panel form-panel">
+
+    <form method="post" autocomplete="off">
+        {% csrf_token %}
+
+        <div class="field">
+            <label for="codigo_niif">Código NIIF</label>
+            <input
+                type="text"
+                id="codigo_niif"
+                name="codigo_niif"
+                class="form-control mono"
+                placeholder="Escanea o escribe el código"
+                autofocus
+                required
+            >
+            <p class="hint-text">Registre la actividad sobre el cilindro y quede visible en el historial de hoy.</p>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">
+                <span class="material-icons-round">check_circle</span>
+                Registrar
+            </button>
+            <a href="{% url 'trazapp:home' %}" class="btn btn-ghost">
+                <span class="material-icons-round">arrow_back</span>
+                Volver
+            </a>
+        </div>
+    </form>
+
+</div>
+
+{% if actividades_hoy %}
+<div class="panel table-panel" style="margin-top: 1.5rem;">
+    <div class="panel-head">
+        <h3>Registros de hoy</h3>
+        <span class="hint">últimas actividades registradas</span>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Código NIIF</th>
+                <th>Tipo</th>
+                <th>Color</th>
+                <th>Hora</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for registro in actividades_hoy %}
+            <tr>
+                <td class="cyl-code">{{ registro.cilindro.codigo_niif }}</td>
+                <td>{{ registro.tipo_actividad.nombre }}</td>
+                <td>{{ registro.cilindro.color }}</td>
+                <td>{{ registro.fecha_hora|time:"H:i" }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4">No hay registros todavía.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endif %}
+
+{% endblock %}

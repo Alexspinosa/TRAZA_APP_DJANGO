@@ -41,7 +41,7 @@ def _registrar_actividad(request, *, nombre, icono, accent, url_name):
         fecha_hora__date=hoy
     ).select_related('cilindro__tipo', 'cilindro__color').order_by('-fecha_hora')[:10]
 
-    return render(request, 'trazapp/registrar_actividad.html', {
+    return render(request, 'trazapp/pintura/registrar.html', {
         'titulo': nombre,
         'icono': icono,
         'accent': accent,
