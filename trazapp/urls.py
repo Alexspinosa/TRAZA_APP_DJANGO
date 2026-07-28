@@ -1,5 +1,4 @@
 # Creamos las vista de la APP
-# Creamos las vista de la APP
 
 from django.urls import path
 from . import views
@@ -31,4 +30,7 @@ urlpatterns = [
     path('actividad/reparacion/', views.registrar_reparacion, name='registrar_reparacion'),
     path('actividad/cambio-valvula/', views.registrar_cambio_valvula, name='registrar_cambio_valvula'),
     path('actividad/etiquetado/', views.registrar_etiquetado, name='registrar_etiquetado'),
+    path('actividad/etiquetado/', views.registrar_etiquetado, name='registrar_etiquetado'),
+    path('actividad/etiquetado/imprimir/', views.imprimir_etiqueta, name='imprimir_etiqueta'),  
+    
 ]
