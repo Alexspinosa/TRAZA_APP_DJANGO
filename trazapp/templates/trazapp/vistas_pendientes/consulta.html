@@ -1,0 +1,22 @@
+{% extends 'trazapp/base.html' %}
+
+{% block title %}{{ info.titulo }}{% endblock %}
+{% block breadcrumb %}{{ info.titulo }}{% endblock %}
+{% block page_title %}{{ info.titulo }}{% endblock %}
+
+{% block content %}
+
+<div class="panel">
+    <div class="panel-head">
+        <h3>{{ info.titulo }}</h3>
+        <span class="hint">vista en construcción</span>
+    </div>
+    <p class="hint-text">
+        Esta consulta todavía no está conectada a datos reales. Falta definir el modelo
+        y la lógica para <strong>{{ info.titulo|lower }}</strong>.
+    </p>
+</div>
+
+{% endblock %}
+
+
