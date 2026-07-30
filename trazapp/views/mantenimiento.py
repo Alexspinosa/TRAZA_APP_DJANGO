@@ -1,8 +1,10 @@
+import re
+
 from django.shortcuts import render, redirect
 from django.utils import timezone
 from django.contrib import messages
 
-from ..models import Cilindro, TipoActividad, RegistroActividad
+from ..models import Cilindro, TipoActividad, RegistroActividad, LoteImpresion
 
 
 def _registrar_actividad(request, *, nombre, icono, accent, url_name, permite_imprimir=False):
@@ -104,24 +106,79 @@ def registrar_etiquetado(request):
 
 def imprimir_etiqueta(request):
     """
-    Genera la vista imprimible de la etiqueta de un cilindro.
-    Se usa tanto justo después de registrar (botón en pantalla)
-    como para reimprimir en cualquier momento (buscador por NIF).
-    """
-    codigo_niif = request.GET.get('codigo_niif', '').strip()
-    cilindro = None
-    error = None
+    Genera la vista imprimible de una etiqueta (o de un lote completo).
 
-    if not codigo_niif:
-        error = 'No se indicó un código NIIF.'
-    else:
+    Acepta en el parámetro 'codigo_niif':
+    - un código NIIF individual -> imprime una sola etiqueta
+    - un consecutivo de lote (formato YYYYMMDD-NNN) -> imprime
+        todas las etiquetas de ese lote, una tras otra
+
+    Se usa tanto justo después de registrar (botón en pantalla)
+    como para reimprimir en cualquier momento (buscador por NIF o por lote).
+    """
+    codigo = request.GET.get('codigo_niif', '').strip()
+
+    if not codigo:
+        return render(request, 'trazapp/mantenimiento/etiqueta.html', {
+            'cilindro': None,
+            'codigo_niif': codigo,
+            'error': 'No se indicó un código NIIF.',
+        })
+
+    # Caso 1: parece un consecutivo de lote (ej. 20260730-001)
+    if re.match(r'^\d{8}-\d{3}$', codigo):
         try:
-            cilindro = Cilindro.objects.select_related('tipo', 'color').get(codigo_niif=codigo_niif)
-        except Cilindro.DoesNotExist:
-            error = f'No existe un cilindro con el código {codigo_niif}.'
+            lote = LoteImpresion.objects.get(consecutivo=codigo)
+        except LoteImpresion.DoesNotExist:
+            return render(request, 'trazapp/mantenimiento/etiqueta.html', {
+                'cilindro': None,
+                'codigo_niif': codigo,
+                'error': f'No existe un lote con el consecutivo {codigo}.',
+            })
+
+        cilindros = lote.cilindros.select_related('tipo', 'color').all()
+        return render(request, 'trazapp/mantenimiento/etiquetas_lote.html', {
+            'lote': lote,
+            'cilindros': cilindros,
+        })
+
+    # Caso 2: código NIIF individual
+    try:
+        cilindro = Cilindro.objects.select_related('tipo', 'color').get(codigo_niif=codigo)
+    except Cilindro.DoesNotExist:
+        return render(request, 'trazapp/mantenimiento/etiqueta.html', {
+            'cilindro': None,
+            'codigo_niif': codigo,
+            'error': f'No existe un cilindro con el código {codigo}.',
+        })
 
     return render(request, 'trazapp/mantenimiento/etiqueta.html', {
         'cilindro': cilindro,
-        'codigo_niif': codigo_niif,
-        'error': error,
+        'codigo_niif': codigo,
+        'error': None,
+    })
+
+
+def imprimir_lote(request):
+    """
+    Recibe una lista de códigos NIIF marcados en la tabla de 'Registros de hoy',
+    crea un LoteImpresion con su consecutivo, y renderiza la vista imprimible
+    con todas las etiquetas seguidas.
+    """
+    codigos_niif = request.GET.getlist('codigo_niif')
+
+    if not codigos_niif:
+        messages.warning(request, 'No seleccionaste ningún cilindro para imprimir.')
+        return redirect('trazapp:registrar_etiquetado')
+
+    cilindros = Cilindro.objects.filter(codigo_niif__in=codigos_niif).select_related('tipo', 'color')
+
+    lote = LoteImpresion.objects.create(
+        usuario=request.user if request.user.is_authenticated else None
+    )
+    lote.cilindros.set(cilindros)
+
+    return render(request, 'trazapp/mantenimiento/etiquetas_lote.html', {
+        'lote': lote,
+        'cilindros': cilindros,
     })
