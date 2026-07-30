@@ -32,5 +32,5 @@ urlpatterns = [
     path('actividad/etiquetado/', views.registrar_etiquetado, name='registrar_etiquetado'),
     path('actividad/etiquetado/', views.registrar_etiquetado, name='registrar_etiquetado'),
     path('actividad/etiquetado/imprimir/', views.imprimir_etiqueta, name='imprimir_etiqueta'),  
-    
+    path('actividad/etiquetado/imprimir-lote/', views.imprimir_lote, name='imprimir_lote'),     
 ]

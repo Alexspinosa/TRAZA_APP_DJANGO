@@ -5,7 +5,10 @@ from .mantenimiento import (
     registrar_reparacion,
     registrar_cambio_valvula,
     registrar_etiquetado,
-    imprimir_etiqueta
+    imprimir_etiqueta,
+    imprimir_lote
+    
+
 )
 from .pendientes import vista_pendiente
 from .reportes import registrar_meta, reporte_diario
