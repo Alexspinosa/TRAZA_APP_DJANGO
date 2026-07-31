@@ -38,10 +38,10 @@
     </form>
 
     {% if permite_imprimir and ultimo_niif %}
-    <div class="panel-inline-alert" style="margin-top: 1rem;">
-        <p class="hint-text">Cilindro <strong>{{ ultimo_niif }}</strong> registrado.</p>
-        <a
-            href="{% url 'trazapp:imprimir_etiqueta' %}?codigo_niif={{ ultimo_niif }}"
+    <div class="panel-inline-alert border-{{ accent }}">
+        <p>Cilindro <strong>{{ ultimo_niif }}</strong> registrado.</p>
+        
+        <a   href="{% url 'trazapp:imprimir_etiqueta' %}?codigo_niif={{ ultimo_niif }}"
             target="_blank"
             class="btn btn-primary btn-{{ accent }}"
         >
@@ -57,14 +57,14 @@
 <div class="panel form-panel" style="margin-top: 1.5rem;">
     <div class="panel-head">
         <h3>Reimprimir etiqueta</h3>
-        <span class="hint">busca cualquier cilindro por su código NIIF</span>
+        <span class="hint">busca un cilindro por su código NIIF, o un lote por su consecutivo (ej. 20260730-001)</span>
     </div>
     <form method="get" action="{% url 'trazapp:imprimir_etiqueta' %}" target="_blank" class="field-inline">
         <input
             type="text"
             name="codigo_niif"
             class="form-control mono"
-            placeholder="Código NIIF a reimprimir"
+            placeholder="Código NIIF o consecutivo de lote"
             required
         >
         <button type="submit" class="btn btn-ghost">
@@ -79,11 +79,26 @@
 <div class="panel table-panel" style="margin-top: 1.5rem;">
     <div class="panel-head">
         <h3>Registros de hoy</h3>
-        <span class="hint">últimas actividades registradas</span>
+        {% if permite_imprimir %}
+            <button type="submit" form="form-imprimir-lote" id="btn-imprimir-lote" class="btn btn-primary btn-{{ accent }}" disabled>
+                <span class="material-icons-round">print</span>
+                Imprimir seleccionadas (<span id="contador-seleccionados">0</span>)
+            </button>
+        {% else %}
+            <span class="hint">últimas actividades registradas</span>
+        {% endif %}
     </div>
+
+    {% if permite_imprimir %}
+    <form id="form-imprimir-lote" method="get" action="{% url 'trazapp:imprimir_lote' %}" target="_blank"></form>
+    {% endif %}
+
     <table>
         <thead>
             <tr>
+                {% if permite_imprimir %}
+                <th style="width: 30px;"><input type="checkbox" id="chk-todos" class="chk-custom"></th>
+                {% endif %}
                 <th>Código NIIF</th>
                 <th>Tipo</th>
                 <th>Color</th>
@@ -93,6 +108,17 @@
         <tbody>
             {% for registro in actividades_hoy %}
             <tr>
+                {% if permite_imprimir %}
+                <td>
+                    <input
+                        type="checkbox"
+                        class="chk-fila chk-custom"
+                        name="codigo_niif"
+                        value="{{ registro.cilindro.codigo_niif }}"
+                        form="form-imprimir-lote"
+                    >
+                </td>
+                {% endif %}
                 <td class="cyl-code">{{ registro.cilindro.codigo_niif }}</td>
                 <td>{{ registro.tipo_actividad.nombre }}</td>
                 <td>{{ registro.cilindro.color }}</td>
@@ -100,12 +126,41 @@
             </tr>
             {% empty %}
             <tr>
-                <td colspan="4">No hay registros todavía.</td>
+                <td colspan="{% if permite_imprimir %}5{% else %}4{% endif %}">No hay registros todavía.</td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
 </div>
+
+{% if permite_imprimir %}
+<script>
+    (function () {
+        const chkTodos = document.getElementById('chk-todos');
+        const chkFilas = document.querySelectorAll('.chk-fila');
+        const btnImprimir = document.getElementById('btn-imprimir-lote');
+        const contador = document.getElementById('contador-seleccionados');
+
+        function actualizar() {
+            const seleccionados = document.querySelectorAll('.chk-fila:checked').length;
+            contador.textContent = seleccionados;
+            btnImprimir.disabled = seleccionados === 0;
+        }
+
+        if (chkTodos) {
+            chkTodos.addEventListener('change', function () {
+                chkFilas.forEach(function (chk) { chk.checked = chkTodos.checked; });
+                actualizar();
+            });
+        }
+
+        chkFilas.forEach(function (chk) {
+            chk.addEventListener('change', actualizar);
+        });
+    })();
+</script>
+{% endif %}
+
 {% endif %}
 
 {% endblock %}

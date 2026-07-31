@@ -178,7 +178,7 @@ def imprimir_lote(request):
     )
     lote.cilindros.set(cilindros)
 
-    return render(request, 'trazapp/mantenimiento/etiquetas_lote.html', {
+    return render(request, 'trazapp/mantenimiento/imprimir_lote.html', {
         'lote': lote,
         'cilindros': cilindros,
     })

@@ -1,0 +1,67 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Etiquetas — Lote {{ lote.consecutivo }}</title>
+
+    <link rel="stylesheet" href="{% static 'css/etiqueta.css' %}">
+    <link rel="stylesheet" href="{% static 'css/etiqueta_lotes.css' %}">
+    <script src="{% static 'js/JsBarcode.all.min.js' %}"></script>
+</head>
+
+<body>
+
+    <!-- Encabezado de lote (solo visible en pantalla, no se imprime) -->
+    <div class="lote-header no-imprimir">
+        <div class="lote-info">
+            <h2>Lote <strong>{{ lote.consecutivo }}</strong></h2>
+            <p>{{ cilindros|length }} etiqueta{{ cilindros|length|pluralize }} — generado {{ lote.fecha_creacion|date:"d/m/Y H:i" }}</p>
+        </div>
+        <div class="lote-acciones">
+            <button onclick="window.print()">Imprimir</button>
+        </div>
+    </div>
+
+    <!-- Etiquetas -->
+    {% for cilindro in cilindros %}
+    <div class="label {% if not forloop.last %}page-break{% endif %}">
+        <p class="empresa">VIDAGAS</p>
+        <p class="slogan">más vida, más gas</p>
+
+        <svg class="barcode" data-niif="{{ cilindro.codigo_niif }}"></svg>
+
+        <p class="codigo-texto">{{ cilindro.codigo_niif }}</p>
+
+        <div class="separador"></div>
+
+        <p class="capacidad">
+            CILINDROS DE {{ cilindro.tipo.capacidad|floatformat:"-2" }}K
+        </p>
+    </div>
+    {% endfor %}
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelectorAll(".barcode").forEach(function (svg) {
+                var niif = svg.getAttribute("data-niif");
+                if (typeof JsBarcode !== "undefined" && niif) {
+                    JsBarcode(svg, niif, {
+                        format: "CODE128",
+                        displayValue: false,
+                        height: 40,
+                        width: 1.5,
+                        margin: 0
+                    });
+                }
+            });
+
+            // Auto-imprimir con retardo para asegurar render de todos los SVG
+            setTimeout(function () {
+                window.print();
+            }, 400);
+        });
+    </script>
+
+</body>
+</html>

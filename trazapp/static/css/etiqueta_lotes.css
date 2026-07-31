@@ -1,0 +1,94 @@
+/* ==========================================================
+    IMPRESIÓN POR LOTES
+   ========================================================== */
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* ==========================================================
+    ENCABEZADO
+   ========================================================== */
+
+.lote-header {
+    width: 100%;
+    max-width: 700px;
+
+    margin: 20px auto;
+    padding: 20px;
+
+    background: #ffffff;
+    border: 1px solid #dcdcdc;
+    border-radius: 8px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.lote-info h2 {
+    margin: 0 0 10px;
+    font-family: sans-serif;
+    font-size: 22px;
+}
+
+.lote-info p {
+    margin: 5px 0;
+    font-family: sans-serif;
+    font-size: 14px;
+}
+
+.lote-acciones button {
+    padding: 10px 18px;
+    border: none;
+    border-radius: 6px;
+
+    background: #198754;
+    color: #fff;
+
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.lote-acciones button:hover {
+    background: #157347;
+}
+
+/* ==========================================================
+    ETIQUETAS
+   ========================================================== */
+
+.label {
+    margin: 0 auto;
+}
+
+/* Salto de página entre etiquetas */
+
+.page-break {
+    page-break-after: always;
+    break-after: page;
+}
+
+/* ==========================================================
+    IMPRESIÓN
+   ========================================================== */
+
+@media print {
+
+    body {
+        background: #fff;
+    }
+
+    .lote-header {
+        display: none;
+    }
+
+    .page-break {
+        page-break-after: always;
+        break-after: page;
+    }
+
+}

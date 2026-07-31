@@ -33,3 +33,46 @@
 .alert-success{ background:var(--teal-soft); color:#0b6e65; border-color:rgba(15,148,136,.25); }
 .alert-error, .alert-danger{ background:var(--rose-soft); color:#a1123a; border-color:rgba(225,29,72,.25); }
 .alert-warning{ background:var(--amber-soft); color:#9a5b04; border-color:rgba(217,119,6,.25); }
+
+/* =========================================================
+    INLINE ALERTS / CALLOUTS
+   ========================================================= */
+.panel-inline-alert {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-top: 1.75rem;
+    padding: 14px 18px;
+    border-radius: var(--radius-md);
+    background: var(--surface-alt);
+    border: 1px solid var(--border);
+    transition: background 0.2s ease;
+}
+
+.panel-inline-alert.border-teal { border-left: 4px solid var(--teal); }
+.panel-inline-alert.border-rose { border-left: 4px solid var(--rose); }
+.panel-inline-alert.border-indigo { border-left: 4px solid var(--indigo); }
+.panel-inline-alert.border-amber { border-left: 4px solid var(--amber); }
+
+.panel-inline-alert p {
+    margin: 0;
+    font-size: 0.88rem;
+    color: var(--ink);
+    line-height: 1.4;
+}
+
+.panel-inline-alert strong {
+    font-family: var(--font-mono);
+    font-weight: 600;
+}
+
+@media (max-width: 480px) {
+    .panel-inline-alert {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+        gap: 12px;
+    }
+}
+
