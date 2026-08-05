@@ -15,6 +15,7 @@ body {
 .lote-header {
     width: 100%;
     max-width: 700px;
+    align-self: center;      /* se centra dentro del flex sin alterar las etiquetas */
 
     margin: 20px auto;
     padding: 20px;

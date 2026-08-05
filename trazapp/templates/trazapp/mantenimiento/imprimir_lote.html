@@ -8,11 +8,11 @@
     <link rel="stylesheet" href="{% static 'css/etiqueta.css' %}">
     <link rel="stylesheet" href="{% static 'css/etiqueta_lotes.css' %}">
     <script src="{% static 'js/JsBarcode.all.min.js' %}"></script>
+    <script src="{% static 'js/qrcode.min.js' %}"></script>
 </head>
 
 <body>
 
-    <!-- Encabezado de lote (solo visible en pantalla, no se imprime) -->
     <div class="lote-header no-imprimir">
         <div class="lote-info">
             <h2>Lote <strong>{{ lote.consecutivo }}</strong></h2>
@@ -23,40 +23,79 @@
         </div>
     </div>
 
-    <!-- Etiquetas -->
     {% for cilindro in cilindros %}
     <div class="label {% if not forloop.last %}page-break{% endif %}">
-        <p class="empresa">VIDAGAS</p>
-        <p class="slogan">más vida, más gas</p>
 
+        <!-- Encabezado: empresa + slogan a la izquierda/centro, QR arriba a la derecha -->
+        <div class="label-header">
+            <div class="header-spacer"></div>
+            <div class="empresa-info">
+                <p class="empresa">VIDAGAS</p>
+                <p class="slogan">más vida, más gas</p>
+            </div>
+            <div class="qr-mantenimiento" data-fecha="{{ cilindro.fecha_mantenimiento|date:'d/m/Y' }}"></div>
+        </div>
+
+        <!--
+            CÓDIGO DE BARRAS
+            Para ajustar orientación/tamaño, modificá los parámetros de JsBarcode
+            más abajo en el <script> (buscá el comentario "AJUSTES DEL CÓDIGO DE BARRAS").
+        -->
         <svg class="barcode" data-niif="{{ cilindro.codigo_niif }}"></svg>
 
         <p class="codigo-texto">{{ cilindro.codigo_niif }}</p>
 
-        <div class="separador"></div>
-
         <p class="capacidad">
             CILINDROS DE {{ cilindro.tipo.capacidad|floatformat:"-2" }}K
         </p>
+
+        <div class="separador"></div>
+
     </div>
     {% endfor %}
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
+
+            // ============================================================
+            // CÓDIGO DE BARRAS
+            // ============================================================
             document.querySelectorAll(".barcode").forEach(function (svg) {
                 var niif = svg.getAttribute("data-niif");
                 if (typeof JsBarcode !== "undefined" && niif) {
                     JsBarcode(svg, niif, {
                         format: "CODE128",
                         displayValue: false,
-                        height: 40,
-                        width: 1.5,
-                        margin: 0
+
+                        // --- AJUSTES DEL CÓDIGO DE BARRAS ---
+                        height: 40,       // alto de las barras (px)
+                        width: 1.2,       // ancho de cada barra individual (px)
+                        margin: 0,        // margen alrededor del código
+                        // rotate: "R90", // descomentá para rotar 90° (ej: "R90", "L90", "R180")
+                        // --------------------------------------
+
+                        xmlDocument: document
+                    });
+                    svg.setAttribute("width", "150");
+                    svg.setAttribute("preserveAspectRatio", "none");
+                }
+            });
+
+            // ============================================================
+            // QR DE MANTENIMIENTO
+            // ============================================================
+            document.querySelectorAll(".qr-mantenimiento").forEach(function (qrDiv) {
+                var fecha = qrDiv.getAttribute("data-fecha");
+                if (fecha) {
+                    new QRCode(qrDiv, {
+                        text: fecha,
+                        width: 60,
+                        height: 60,
+                        correctLevel: QRCode.CorrectLevel.M
                     });
                 }
             });
 
-            // Auto-imprimir con retardo para asegurar render de todos los SVG
             setTimeout(function () {
                 window.print();
             }, 400);
